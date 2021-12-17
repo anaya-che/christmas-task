@@ -21,8 +21,8 @@ class App {
     filter.start();
   }
 
-  start() {
-    this.getAllToys();
+  async start() {
+    await this.getAllToys();
     this.getToysPage();
   }
 }
