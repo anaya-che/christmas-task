@@ -26,6 +26,11 @@ class ToysPage {
             <input type="checkbox" class="favorite-input" id="favorite">
             <label for="favorite" class="favorite-label"></label>
           </div>
+          <div class="form-filter__count">
+            <div class="count-value_lower">1</div>
+            <div class="count-slider"></div>
+            <div class="count-value_upper">12</div>
+          </div>
         </section>
         <section class="toy-cards"></section>
     `;
