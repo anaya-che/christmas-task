@@ -27,6 +27,7 @@ class ToysPage {
             <button class="button" id="unfavorite">Unfavorite</button>
           </div>
         </section>
+        <section class="toy-cards"></section>
     `;
     mainElement.innerHTML = page;
   }

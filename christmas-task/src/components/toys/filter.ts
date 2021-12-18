@@ -1,6 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import {
   IOptions, IToy, ShapeFilter, ColorFilter, SizeFilter,
-} from '../types/types';
+} from '../../types/types';
+import GetToyCards from './getToyCards';
 
 class Filter {
   options: IOptions;
@@ -19,19 +21,18 @@ class Filter {
 
   start(): void {
     document.addEventListener('click', this.changeFilter.bind(this));
-    console.log(this.options);
   }
 
-  changeFilter(event: MouseEvent) {
+  changeFilter(event: MouseEvent): void {
     const target = <HTMLElement>event.target;
     if (target.closest('.form-filter__shape')) this.choseShape(target);
     else if (target.closest('.form-filter__color')) this.choseColor(target);
     else if (target.closest('.form-filter__size')) this.choseSize(target);
     console.log(this.options);
-    this.getToy();
+    GetToyCards.getToys(this.data, this.options);
   }
 
-  choseShape(target: HTMLElement) {
+  choseShape(target: HTMLElement): void {
     const closest = <HTMLElement>target.closest('.button');
     const { shape } = this.options;
     const round: string = ShapeFilter.Round;
@@ -69,10 +70,14 @@ class Filter {
           break;
         default: break;
       }
+
+      if (shape.length === 0) {
+        shape.push(round, bell, cone, snowflake, figurine);
+      }
     }
   }
 
-  choseColor(target: HTMLElement) {
+  choseColor(target: HTMLElement): void {
     const closest = <HTMLElement>target.closest('.button');
     const { color } = this.options;
     const white: string = ColorFilter.White;
@@ -110,10 +115,14 @@ class Filter {
           break;
         default: break;
       }
+
+      if (color.length === 0) {
+        color.push(white, yellow, red, blue, green);
+      }
     }
   }
 
-  choseSize(target: HTMLElement) {
+  choseSize(target: HTMLElement): void {
     const closest = <HTMLElement>target.closest('.button');
     const { size } = this.options;
     const big: string = SizeFilter.Big;
@@ -139,15 +148,11 @@ class Filter {
           break;
         default: break;
       }
-    }
-  }
 
-  getToy() {
-    this.data.forEach((el: IToy) => {
-      if (this.options.shape.includes(el.shape)
-          && this.options.color.includes(el.color)
-          && this.options.size.includes(el.size)) { console.log(el); }
-    });
+      if (size.length === 0) {
+        size.push(big, medium, small);
+      }
+    }
   }
 }
 
