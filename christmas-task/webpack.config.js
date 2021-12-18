@@ -53,19 +53,22 @@ const config = {
         test: /\.(?:ico|gif|png|jpg|jpeg|svg|webp)$/i,
         type: "asset/resource",
         generator: {
-          filename: "[name][ext]",
+          filename: "[path][name][ext]",
         },
       },
       {
         test: /\.(?:mp3|wav|ogg|mp4)$/i,
         type: "asset/resource",
         generator: {
-          filename: "[name][ext]",
+          filename: "[path][name][ext]",
         },
       },
       {
         test: /\.(woff(2)?|eot|ttf|otf)$/i,
         type: "asset/resource",
+        generator: {
+          filename: "[path][name][ext]",
+        },
       },
       {
         test: /\.css$/i,
