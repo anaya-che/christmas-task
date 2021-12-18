@@ -7,7 +7,8 @@ class GetToyCards {
     data.forEach((el: IToy) => {
       if (options.shape.includes(el.shape)
           && options.color.includes(el.color)
-          && options.size.includes(el.size)) {
+          && options.size.includes(el.size)
+          && options.favorite.includes(el.favorite)) {
         const card = new ToyCard(
           el.num,
           el.name,
