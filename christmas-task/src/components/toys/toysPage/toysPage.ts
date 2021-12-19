@@ -29,14 +29,14 @@ class ToysPage {
             <label for="favorite" class="favorite-label"></label>
           </div>
           <div class="form-filter__count">
-            <div class="count-value_lower">1</div>
+            <div class="count-value_lower"></div>
             <div class="count-slider"></div>
-            <div class="count-value_upper">12</div>
+            <div class="count-value_upper"></div>
           </div>
           <div class="form-filter__year">
-            <div class="year-value_lower">1940</div>
+            <div class="year-value_lower"></div>
             <div class="year-slider"></div>
-            <div class="year-value_upper">2020</div>
+            <div class="year-value_upper"></div>
           </div>
           <div class="form-filter__reset">
           <button class="reset-button">Reset</button>

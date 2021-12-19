@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import * as noUiSlider from 'nouislider';
 import {
   IOptions, ShapeFilter, ColorFilter, SizeFilter,
@@ -6,24 +7,116 @@ import {
 class Filter {
   options: IOptions;
 
+  countSlider: noUiSlider.target;
+
+  yearSlider: noUiSlider.target;
+
   constructor(options: IOptions) {
     this.options = options;
+    this.countSlider = <noUiSlider.target>document.querySelector('.count-slider');
+    this.yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
   }
 
   start(): void {
-    const countSlider = <noUiSlider.target>document.querySelector('.count-slider');
-    const yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
-    (<noUiSlider.API>countSlider.noUiSlider).on('change', (values: (string | number)[]): void => {
+    this.displayCurrentOptions();
+    (<noUiSlider.API> this.countSlider.noUiSlider).on('change', (values: (string | number)[]): void => {
       this.options.count = values;
       this.getCountSliderValues();
     });
 
-    (<noUiSlider.API>yearSlider.noUiSlider).on('change', (values: (string | number)[]): void => {
+    (<noUiSlider.API> this.yearSlider.noUiSlider).on('change', (values: (string | number)[]): void => {
       this.options.year = values;
       this.getYearSliderValues();
     });
     const formFilter = <HTMLElement>document.querySelector('.form-filter');
     formFilter.addEventListener('click', this.changeFilter.bind(this));
+  }
+
+  displayCurrentOptions(): void {
+    this.displaySliderOptions();
+    this.displayInputOptions();
+    if (this.options.shape.length !== 5) this.displayShapeOptions();
+    if (this.options.color.length !== 5) this.displayColorOptions();
+    if (this.options.size.length !== 3) this.displaySizeOptions();
+  }
+
+  displaySliderOptions(): void {
+    (<noUiSlider.API> this.countSlider.noUiSlider).set([this.options.count[0], this.options.count[1]]);
+    (<noUiSlider.API> this.yearSlider.noUiSlider).set([this.options.year[0], this.options.year[1]]);
+    this.getCountSliderValues();
+    this.getYearSliderValues();
+  }
+
+  displayInputOptions(): void {
+    const favoriteInput = <HTMLInputElement>document.querySelector('.favorite-input');
+    if (this.options.favorite.length === 1) favoriteInput.checked = true;
+    else favoriteInput.checked = false;
+  }
+
+  displayShapeOptions(): void {
+    const { shape } = this.options;
+    shape.forEach((el: string): void => {
+      switch (el) {
+        case ShapeFilter.Round:
+          Filter.activeButton('round');
+          break;
+        case ShapeFilter.Bell:
+          Filter.activeButton('bell');
+          break;
+        case ShapeFilter.Cone:
+          Filter.activeButton('cone');
+          break;
+        case ShapeFilter.Snowflake:
+          Filter.activeButton('snowflake');
+          break;
+        case ShapeFilter.Figurine:
+          Filter.activeButton('figurine');
+          break;
+        default: break;
+      }
+    });
+  }
+
+  displayColorOptions(): void {
+    const { color } = this.options;
+    color.forEach((el: string): void => {
+      switch (el) {
+        case ColorFilter.White:
+          Filter.activeButton('white');
+          break;
+        case ColorFilter.Yellow:
+          Filter.activeButton('yellow');
+          break;
+        case ColorFilter.Red:
+          Filter.activeButton('red');
+          break;
+        case ColorFilter.Blue:
+          Filter.activeButton('blue');
+          break;
+        case ColorFilter.Green:
+          Filter.activeButton('green');
+          break;
+        default: break;
+      }
+    });
+  }
+
+  displaySizeOptions(): void {
+    const { size } = this.options;
+    size.forEach((el: string): void => {
+      switch (el) {
+        case SizeFilter.Big:
+          Filter.activeButton('big');
+          break;
+        case SizeFilter.Medium:
+          Filter.activeButton('medium');
+          break;
+        case SizeFilter.Small:
+          Filter.activeButton('small');
+          break;
+        default: break;
+      }
+    });
   }
 
   changeFilter(event: MouseEvent): void {
@@ -62,32 +155,27 @@ class Filter {
     const activeButtons: HTMLCollectionOf<Element> = document.getElementsByClassName('shape-button active');
     const activeButtonsId = Array.from(activeButtons, (element: Element) => element.id);
     const { shape } = this.options;
-    const round: string = ShapeFilter.Round;
-    const bell: string = ShapeFilter.Bell;
-    const cone: string = ShapeFilter.Cone;
-    const snowflake: string = ShapeFilter.Snowflake;
-    const figurine: string = ShapeFilter.Figurine;
     shape.splice(0, shape.length);
 
     if (activeButtonsId.length === 0) {
-      shape.push(round, bell, cone, snowflake, figurine);
+      shape.push('шар', 'колокольчик', 'шишка', 'снежинка', 'фигурка');
     } else {
       activeButtonsId.forEach((el: string) => {
         switch (el) {
           case 'round':
-            if (!shape.includes(round)) shape.push(round);
+            if (!shape.includes(ShapeFilter.Round)) shape.push(ShapeFilter.Round);
             break;
           case 'bell':
-            if (!shape.includes(bell)) shape.push(bell);
+            if (!shape.includes(ShapeFilter.Bell)) shape.push(ShapeFilter.Bell);
             break;
           case 'cone':
-            if (!shape.includes(cone)) shape.push(cone);
+            if (!shape.includes(ShapeFilter.Cone)) shape.push(ShapeFilter.Cone);
             break;
           case 'snowflake':
-            if (!shape.includes(snowflake)) shape.push(snowflake);
+            if (!shape.includes(ShapeFilter.Snowflake)) shape.push(ShapeFilter.Snowflake);
             break;
           case 'figurine':
-            if (!shape.includes(figurine)) shape.push(figurine);
+            if (!shape.includes(ShapeFilter.Figurine)) shape.push(ShapeFilter.Figurine);
             break;
           default: break;
         }
@@ -99,32 +187,27 @@ class Filter {
     const activeButtons: HTMLCollectionOf<Element> = document.getElementsByClassName('color-button active');
     const activeButtonsId = Array.from(activeButtons, (element: Element) => element.id);
     const { color } = this.options;
-    const white: string = ColorFilter.White;
-    const yellow: string = ColorFilter.Yellow;
-    const red: string = ColorFilter.Red;
-    const blue: string = ColorFilter.Blue;
-    const green: string = ColorFilter.Green;
     color.splice(0, color.length);
 
     if (activeButtonsId.length === 0) {
-      color.push(white, yellow, red, blue, green);
+      color.push('белый', 'желтый', 'красный', 'синий', 'зелёный');
     } else {
       activeButtonsId.forEach((el: string) => {
         switch (el) {
           case 'white':
-            if (!color.includes(white)) color.push(white);
+            if (!color.includes(ColorFilter.White)) color.push(ColorFilter.White);
             break;
           case 'yellow':
-            if (!color.includes(yellow)) color.push(yellow);
+            if (!color.includes(ColorFilter.Yellow)) color.push(ColorFilter.Yellow);
             break;
           case 'red':
-            if (!color.includes(red)) color.push(red);
+            if (!color.includes(ColorFilter.Red)) color.push(ColorFilter.Red);
             break;
           case 'blue':
-            if (!color.includes(blue)) color.push(blue);
+            if (!color.includes(ColorFilter.Blue)) color.push(ColorFilter.Blue);
             break;
           case 'green':
-            if (!color.includes(green)) color.push(green);
+            if (!color.includes(ColorFilter.Green)) color.push(ColorFilter.Green);
             break;
           default: break;
         }
@@ -136,24 +219,21 @@ class Filter {
     const activeButtons: HTMLCollectionOf<Element> = document.getElementsByClassName('size-button active');
     const activeButtonsId = Array.from(activeButtons, (element: Element) => element.id);
     const { size } = this.options;
-    const big: string = SizeFilter.Big;
-    const medium: string = SizeFilter.Medium;
-    const small: string = SizeFilter.Small;
     size.splice(0, size.length);
 
     if (activeButtonsId.length === 0) {
-      size.push(big, medium, small);
+      size.push('большой', 'средний', 'малый');
     } else {
       activeButtonsId.forEach((el: string) => {
         switch (el) {
           case 'big':
-            if (!size.includes(big)) size.push(big);
+            if (!size.includes(SizeFilter.Big)) size.push(SizeFilter.Big);
             break;
           case 'medium':
-            if (!size.includes(medium)) size.push(medium);
+            if (!size.includes(SizeFilter.Medium)) size.push(SizeFilter.Medium);
             break;
           case 'small':
-            if (!size.includes(small)) size.push(small);
+            if (!size.includes(SizeFilter.Small)) size.push(SizeFilter.Small);
             break;
           default: break;
         }
@@ -191,16 +271,9 @@ class Filter {
       count: [1, 12],
       year: [1940, 2020],
     };
-
+    this.displayCurrentOptions();
     const activeButtons: NodeListOf<Element> = document.querySelectorAll('.active');
     activeButtons.forEach((el) => el.classList.remove('active'));
-
-    const countSlider = <noUiSlider.target>document.querySelector('.count-slider');
-    const yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
-    (<noUiSlider.API>countSlider.noUiSlider).set([1, 12]);
-    (<noUiSlider.API>yearSlider.noUiSlider).set([1940, 2020]);
-    this.getCountSliderValues();
-    this.getYearSliderValues();
   }
 
   static activeButton(id: string): void {

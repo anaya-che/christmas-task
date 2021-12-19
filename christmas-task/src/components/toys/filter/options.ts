@@ -32,10 +32,10 @@ class Options {
       year: [1940, 2020],
     };
     this.sort = 'name-asc';
+    this.selectedCards = [];
+    this.storage = new Storage();
     this.filter = new Filter(this.options);
     this.sorting = new Sorting(this.data, this.sort);
-    this.selectedCards = [];
-    this.storage = new Storage(this.options, this.sort, this.selectedCards);
   }
 
   start(): void {
@@ -43,6 +43,7 @@ class Options {
     const toyCards = <HTMLElement>document.querySelector('.toy-cards');
     this.storage.start();
     this.getOptionsFromStorage();
+    this.displaySelectedAmount();
     this.sorting.start();
     filter.addEventListener('click', this.applySorting.bind(this));
     this.filter.start();
@@ -52,20 +53,19 @@ class Options {
     window.addEventListener('beforeunload', this.storage.setLocalStorage.bind(this));
   }
 
-  applySorting() {
+  applySorting(): void {
     if (this.sort !== this.sorting.sort) {
       this.sort = this.sorting.sort;
       GetToyCards.getToys(this.data, this.options, this.selectedCards);
     }
   }
 
-  applyOptions() {
+  applyOptions(): void {
     this.options = this.filter.options;
     GetToyCards.getToys(this.data, this.options, this.selectedCards);
   }
 
   selectCards(event: MouseEvent): void {
-    const selectedAmount = <HTMLElement>document.querySelector('.selected-amount');
     const target = <HTMLElement>event.target;
     const closest = <HTMLElement>target.closest('.card');
     if (closest) {
@@ -77,17 +77,21 @@ class Options {
         closest.classList.remove('selected');
         this.selectedCards.splice(this.selectedCards.indexOf(closest.id), 1);
       }
-      selectedAmount.textContent = this.selectedCards.length.toString();
+      this.displaySelectedAmount();
     }
   }
 
-  getOptionsFromStorage() {
+  displaySelectedAmount(): void {
+    const selectedAmount = <HTMLElement>document.querySelector('.selected-amount');
+    selectedAmount.textContent = this.selectedCards.length.toString();
+  }
+
+  getOptionsFromStorage(): void {
     this.options = this.storage.options;
     this.sort = this.storage.sort;
     this.selectedCards = this.storage.selectedCards;
-    console.log(this.options);
-    console.log(this.sort);
-    console.log(this.selectedCards);
+    this.filter = new Filter(this.options);
+    this.sorting = new Sorting(this.data, this.sort);
   }
 }
 

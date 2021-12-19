@@ -9,19 +9,26 @@ class Storage {
 
   selectedCards: string[];
 
-  constructor(options: IOptions, sort: string, selectedCards: string[]) {
-    this.options = options;
-    this.sort = sort;
-    this.selectedCards = selectedCards;
+  constructor() {
+    this.options = {
+      shape: ['шар', 'колокольчик', 'шишка', 'снежинка', 'фигурка'],
+      color: ['белый', 'желтый', 'красный', 'синий', 'зелёный'],
+      size: ['большой', 'средний', 'малый'],
+      favorite: ['да', 'нет'],
+      count: [1, 12],
+      year: [1940, 2020],
+    };
+    this.sort = 'name-asc';
+    this.selectedCards = [];
   }
 
-  start() {
+  start(): void {
     this.getLocalStorage();
     const clearButton = <HTMLElement>document.querySelector('.clear-button');
     clearButton.addEventListener('click', Storage.clearStorage.bind(this));
   }
 
-  setLocalStorage() {
+  setLocalStorage(): void {
     const optionsObj = JSON.stringify(this.options);
     const cardsString = this.selectedCards.join();
     localStorage.setItem('options', optionsObj);

@@ -12,6 +12,7 @@ class Sorting {
 
   start(): void {
     const sortSelect = <HTMLSelectElement>document.querySelector('.form-filter__sort');
+    sortSelect.value = this.sort;
     sortSelect.addEventListener('change', this.changeSortOptions.bind(this));
     this.sortToysCards();
   }
