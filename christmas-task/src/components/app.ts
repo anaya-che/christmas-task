@@ -1,5 +1,5 @@
 import { IToy } from '../types/types';
-import ToysPage from './toys/toysPage';
+import ToysPage from './toys/toysPage/toysPage';
 import Options from './toys/filter/options';
 import Slider from './toys/slider';
 

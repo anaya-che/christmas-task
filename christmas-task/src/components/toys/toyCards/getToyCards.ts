@@ -1,10 +1,11 @@
 import ToyCard from './toyCard';
-import { IOptions, IToy } from '../../types/types';
+import { IOptions, IToy } from '../../../types/types';
 
 class GetToyCards {
-  static getToys(data: IToy[], options: IOptions): void {
+  static getToys(data: IToy[], options: IOptions, selectedCards: string[]): void {
     const toysArray: HTMLDivElement[] = [];
     data.forEach((el: IToy) => {
+      let selected = false;
       if (options.shape.includes(el.shape)
           && options.color.includes(el.color)
           && options.size.includes(el.size)
@@ -21,7 +22,8 @@ class GetToyCards {
           el.size,
           el.favorite,
         );
-        toysArray.push(card.createCard());
+        if (selectedCards.includes(el.num)) selected = true;
+        toysArray.push(card.createCard(selected));
       }
     });
     this.render(toysArray);

@@ -1,0 +1,12 @@
+
+
+.card {
+  width: 250px;
+  height: 200px;
+  background-color: bisque;
+  cursor: pointer;
+}
+
+.card.selected {
+  background-color: coral;
+}

@@ -35,9 +35,10 @@ class ToyCard {
     this.favorite = favorite;
   }
 
-  createCard(): HTMLDivElement {
+  createCard(selected: boolean): HTMLDivElement {
     const cardElement: HTMLDivElement = document.createElement('div');
-    cardElement.className = 'card';
+    if (selected) cardElement.className = 'card selected';
+    else cardElement.className = 'card';
     cardElement.id = this.num;
     const numElement: HTMLDivElement = document.createElement('div');
     numElement.className = 'num';
