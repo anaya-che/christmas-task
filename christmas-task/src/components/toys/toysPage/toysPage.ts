@@ -39,7 +39,8 @@ class ToysPage {
             <div class="year-value_upper">2020</div>
           </div>
           <div class="form-filter__reset">
-            <button class="reset-button" id="reset">Reset</button>
+          <button class="reset-button">Reset</button>
+          <button class="clear-button">Clear Storage</button>
           </div>
           <select class="form-filter__sort">
             <option value="name-asc">Name A-Z</option>
