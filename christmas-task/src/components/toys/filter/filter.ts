@@ -1,27 +1,13 @@
 import * as noUiSlider from 'nouislider';
 import {
-  IOptions, IToy, ShapeFilter, ColorFilter, SizeFilter,
-} from '../../types/types';
-import GetToyCards from './getToyCards';
+  IOptions, ShapeFilter, ColorFilter, SizeFilter,
+} from '../../../types/types';
 
 class Filter {
   options: IOptions;
 
-  data: IToy[];
-
-  sort: string;
-
-  constructor(data: IToy[]) {
-    this.data = data;
-    this.options = {
-      shape: ['шар', 'колокольчик', 'шишка', 'снежинка', 'фигурка'],
-      color: ['белый', 'желтый', 'красный', 'синий', 'зелёный'],
-      size: ['большой', 'средний', 'малый'],
-      favorite: ['да', 'нет'],
-      count: [1, 12],
-      year: [1940, 2020],
-    };
-    this.sort = 'name-asc';
+  constructor(options: IOptions) {
+    this.options = options;
   }
 
   start(): void {
@@ -36,10 +22,8 @@ class Filter {
       this.options.year = values;
       this.getYearSliderValues();
     });
-    const sortSelect = <HTMLSelectElement>document.querySelector('.form-filter__sort');
-    sortSelect.addEventListener('change', this.changeSortOptions.bind(this));
-    document.addEventListener('click', this.changeFilter.bind(this));
-    GetToyCards.getToys(this.data, this.options);
+    const formFilter = <HTMLElement>document.querySelector('.form-filter');
+    formFilter.addEventListener('click', this.changeFilter.bind(this));
   }
 
   changeFilter(event: MouseEvent): void {
@@ -48,48 +32,7 @@ class Filter {
         && !target.closest('.count-slider')
         && !target.closest('.form-filter__sort')) {
       this.choseOptions(target);
-      GetToyCards.getToys(this.data, this.options);
     }
-  }
-
-  changeSortOptions(): void {
-    const sortSelect = <HTMLSelectElement>document.querySelector('.form-filter__sort');
-    this.sort = sortSelect.value;
-    this.sortToysCards();
-    GetToyCards.getToys(this.data, this.options);
-  }
-
-  sortToysCards(): void {
-    if (this.sort === 'name-asc') {
-      this.data.sort((a: IToy, b: IToy): 1 | -1 | 0 => {
-        if (a.name > b.name) return 1;
-        if (a.name < b.name) return -1;
-        return 0;
-      });
-    }
-    if (this.sort === 'name-desc') {
-      this.data.sort((a: IToy, b: IToy): 1 | -1 | 0 => {
-        if (a.name > b.name) return -1;
-        if (a.name < b.name) return 1;
-        return 0;
-      });
-    }
-    if (this.sort === 'year-asc') this.data.sort((a: IToy, b: IToy): number => Number(a.year) - Number(b.year));
-    if (this.sort === 'year-desc') this.data.sort((a: IToy, b: IToy): number => Number(b.year) - Number(a.year));
-  }
-
-  getCountSliderValues(): void {
-    const lowerValue = <HTMLElement>document.querySelector('.count-value_lower');
-    const upperValue = <HTMLElement>document.querySelector('.count-value_upper');
-    lowerValue.textContent = this.options.count[0].toString();
-    upperValue.textContent = this.options.count[1].toString();
-  }
-
-  getYearSliderValues(): void {
-    const lowerValue = <HTMLElement>document.querySelector('.year-value_lower');
-    const upperValue = <HTMLElement>document.querySelector('.year-value_upper');
-    lowerValue.textContent = this.options.year[0].toString();
-    upperValue.textContent = this.options.year[1].toString();
   }
 
   choseOptions(target: HTMLElement): void {
@@ -223,6 +166,20 @@ class Filter {
     const { favorite } = this.options;
     if (favoriteInput.checked) favorite.splice(favorite.indexOf('нет'), 1);
     else favorite.push('нет');
+  }
+
+  getCountSliderValues(): void {
+    const lowerValue = <HTMLElement>document.querySelector('.count-value_lower');
+    const upperValue = <HTMLElement>document.querySelector('.count-value_upper');
+    lowerValue.textContent = this.options.count[0].toString();
+    upperValue.textContent = this.options.count[1].toString();
+  }
+
+  getYearSliderValues(): void {
+    const lowerValue = <HTMLElement>document.querySelector('.year-value_lower');
+    const upperValue = <HTMLElement>document.querySelector('.year-value_upper');
+    lowerValue.textContent = this.options.year[0].toString();
+    upperValue.textContent = this.options.year[1].toString();
   }
 
   resetOptions(): void {

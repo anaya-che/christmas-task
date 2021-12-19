@@ -1,6 +1,6 @@
 import { IToy } from '../types/types';
 import ToysPage from './toys/toysPage';
-import Filter from './toys/filter';
+import Options from './toys/filter/options';
 import Slider from './toys/slider';
 
 class App {
@@ -19,8 +19,8 @@ class App {
   getToysPage(): void {
     ToysPage.render();
     Slider.start();
-    const filter: Filter = new Filter(this.data);
-    filter.start();
+    const options: Options = new Options(this.data);
+    options.start();
   }
 
   async start(): Promise<void> {
