@@ -2,15 +2,11 @@ import * as noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 
 class Slider {
-  count: (string | number)[];
+  static start(): void {
+    const countSlider = <noUiSlider.target>document.querySelector('.count-slider');
+    const yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
 
-  constructor() {
-    this.count = ['1', '12'];
-  }
-
-  start(): void {
-    const slider = <noUiSlider.target>document.querySelector('.count-slider');
-    noUiSlider.create(slider, {
+    noUiSlider.create(countSlider, {
       start: [1, 12],
       connect: true,
       step: 1,
@@ -18,20 +14,32 @@ class Slider {
         min: 1,
         max: 12,
       },
+      format: {
+        to(value) {
+          return Math.round(value);
+        },
+        from(value) {
+          return Number(value);
+        },
+      },
     });
 
-    this.getValues();
-  }
-
-  getValues(): void {
-    const lowerValue = <HTMLElement>document.querySelector('.count-value_lower');
-    const upperValue = <HTMLElement>document.querySelector('.count-value_upper');
-    const slider = <noUiSlider.target>document.querySelector('.count-slider');
-    this.count = [];
-    (<noUiSlider.API>slider.noUiSlider).on('change', (values: (string | number)[]) => {
-      lowerValue.textContent = <string>values[0];
-      upperValue.textContent = <string>values[1];
-      this.count = values;
+    noUiSlider.create(yearSlider, {
+      start: [1940, 2020],
+      connect: true,
+      step: 10,
+      range: {
+        min: 1940,
+        max: 2020,
+      },
+      format: {
+        to(value) {
+          return Math.round(value);
+        },
+        from(value) {
+          return Number(value);
+        },
+      },
     });
   }
 }

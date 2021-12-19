@@ -3,6 +3,8 @@ interface IOptions {
   color: string[];
   size: string[];
   favorite: string[];
+  count: (string | number)[];
+  year: (string | number)[];
 }
 
 interface IToy {
@@ -38,28 +40,10 @@ enum SizeFilter {
   Small = 'малый',
 }
 
-enum FavoriteFilter {
-  Favorite = 'true',
-  Unfavorite = 'false',
-}
-
-enum AmountFilter {
-  Min = 1,
-  Max = 12,
-}
-
-enum YearFilter {
-  Min = 1940,
-  Max = 2020,
-}
-
 export {
   IOptions,
   IToy,
   ShapeFilter,
   ColorFilter,
   SizeFilter,
-  FavoriteFilter,
-  AmountFilter,
-  YearFilter,
 };

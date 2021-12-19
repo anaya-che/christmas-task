@@ -31,6 +31,11 @@ class ToysPage {
             <div class="count-slider"></div>
             <div class="count-value_upper">12</div>
           </div>
+          <div class="form-filter__year">
+            <div class="year-value_lower">1940</div>
+            <div class="year-slider"></div>
+            <div class="year-value_upper">2020</div>
+          </div>
         </section>
         <section class="toy-cards"></section>
     `;

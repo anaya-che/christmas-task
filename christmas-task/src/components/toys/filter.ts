@@ -1,4 +1,4 @@
-/* eslint-disable class-methods-use-this */
+import * as noUiSlider from 'nouislider';
 import {
   IOptions, IToy, ShapeFilter, ColorFilter, SizeFilter,
 } from '../../types/types';
@@ -16,18 +16,46 @@ class Filter {
       color: ['белый', 'желтый', 'красный', 'синий', 'зелёный'],
       size: ['большой', 'средний', 'малый'],
       favorite: ['да', 'нет'],
+      count: [1, 12],
+      year: [1940, 2020],
     };
   }
 
   start(): void {
+    const countSlider = <noUiSlider.target>document.querySelector('.count-slider');
+    const yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
+    (<noUiSlider.API>countSlider.noUiSlider).on('change', (values: (string | number)[]): void => {
+      this.options.count = values;
+      this.getCountSliderValues();
+    });
+
+    (<noUiSlider.API>yearSlider.noUiSlider).on('change', (values: (string | number)[]): void => {
+      this.options.year = values;
+      this.getYearSliderValues();
+    });
+
     document.addEventListener('click', this.changeFilter.bind(this));
     GetToyCards.getToys(this.data, this.options);
   }
 
   changeFilter(event: MouseEvent): void {
     const target = <HTMLElement>event.target;
-    if (target.closest('.form-filter')) this.choseOptions(target);
+    if (target.closest('.form-filter') && !target.closest('.count-slider')) this.choseOptions(target);
     GetToyCards.getToys(this.data, this.options);
+  }
+
+  getCountSliderValues(): void {
+    const lowerValue = <HTMLElement>document.querySelector('.count-value_lower');
+    const upperValue = <HTMLElement>document.querySelector('.count-value_upper');
+    lowerValue.textContent = this.options.count[0].toString();
+    upperValue.textContent = this.options.count[1].toString();
+  }
+
+  getYearSliderValues(): void {
+    const lowerValue = <HTMLElement>document.querySelector('.year-value_lower');
+    const upperValue = <HTMLElement>document.querySelector('.year-value_upper');
+    lowerValue.textContent = this.options.year[0].toString();
+    upperValue.textContent = this.options.year[1].toString();
   }
 
   choseOptions(target: HTMLElement): void {
@@ -37,13 +65,13 @@ class Filter {
     const favoriteInput = <HTMLElement>target.closest('.favorite-input');
 
     if (shapeButton) {
-      this.activeButton(shapeButton.id);
+      Filter.activeButton(shapeButton.id);
       this.setShapeOptions();
     } else if (colorButton) {
-      this.activeButton(colorButton.id);
+      Filter.activeButton(colorButton.id);
       this.setColorOptions();
     } else if (sizeButton) {
-      this.activeButton(sizeButton.id);
+      Filter.activeButton(sizeButton.id);
       this.setSizeOptions();
     } else if (favoriteInput) {
       this.setFavoriteOptions();
@@ -160,7 +188,7 @@ class Filter {
     else favorite.push('нет');
   }
 
-  activeButton(id: string): void {
+  static activeButton(id: string): void {
     const button = <HTMLElement>document.getElementById(id);
     if (button.classList.contains('active')) button.classList.remove('active');
     else button.classList.add('active');

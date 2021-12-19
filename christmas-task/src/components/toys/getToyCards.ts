@@ -8,7 +8,9 @@ class GetToyCards {
       if (options.shape.includes(el.shape)
           && options.color.includes(el.color)
           && options.size.includes(el.size)
-          && options.favorite.includes(el.favorite)) {
+          && options.favorite.includes(el.favorite)
+          && (Number(el.count) >= options.count[0] && Number(el.count) <= options.count[1])
+          && (Number(el.year) >= options.year[0] && Number(el.year) <= options.year[1])) {
         const card = new ToyCard(
           el.num,
           el.name,

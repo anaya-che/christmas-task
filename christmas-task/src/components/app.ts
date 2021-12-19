@@ -18,10 +18,9 @@ class App {
 
   getToysPage(): void {
     ToysPage.render();
+    Slider.start();
     const filter: Filter = new Filter(this.data);
     filter.start();
-    const slider: Slider = new Slider();
-    slider.start();
   }
 
   async start(): Promise<void> {
