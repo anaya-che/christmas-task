@@ -63,6 +63,7 @@ class Filter {
     const colorButton = <HTMLElement>target.closest('.color-button');
     const sizeButton = <HTMLElement>target.closest('.size-button');
     const favoriteInput = <HTMLElement>target.closest('.favorite-input');
+    const resetButton = <HTMLElement>target.closest('.reset-button');
 
     if (shapeButton) {
       Filter.activeButton(shapeButton.id);
@@ -75,6 +76,8 @@ class Filter {
       this.setSizeOptions();
     } else if (favoriteInput) {
       this.setFavoriteOptions();
+    } else if (resetButton) {
+      this.resetOptions();
     }
   }
 
@@ -186,6 +189,27 @@ class Filter {
     const { favorite } = this.options;
     if (favoriteInput.checked) favorite.splice(favorite.indexOf('нет'), 1);
     else favorite.push('нет');
+  }
+
+  resetOptions(): void {
+    this.options = {
+      shape: ['шар', 'колокольчик', 'шишка', 'снежинка', 'фигурка'],
+      color: ['белый', 'желтый', 'красный', 'синий', 'зелёный'],
+      size: ['большой', 'средний', 'малый'],
+      favorite: ['да', 'нет'],
+      count: [1, 12],
+      year: [1940, 2020],
+    };
+
+    const activeButtons: NodeListOf<Element> = document.querySelectorAll('.active');
+    activeButtons.forEach((el) => el.classList.remove('active'));
+
+    const countSlider = <noUiSlider.target>document.querySelector('.count-slider');
+    const yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
+    (<noUiSlider.API>countSlider.noUiSlider).set([1, 12]);
+    (<noUiSlider.API>yearSlider.noUiSlider).set([1940, 2020]);
+    this.getCountSliderValues();
+    this.getYearSliderValues();
   }
 
   static activeButton(id: string): void {

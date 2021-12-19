@@ -36,6 +36,9 @@ class ToysPage {
             <div class="year-slider"></div>
             <div class="year-value_upper">2020</div>
           </div>
+          <div class="form-filter__reset">
+            <button class="reset-button" id="reset">Reset</button>
+          </div>
         </section>
         <section class="toy-cards"></section>
     `;
