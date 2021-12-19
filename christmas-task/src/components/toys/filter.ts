@@ -9,6 +9,8 @@ class Filter {
 
   data: IToy[];
 
+  sort: string;
+
   constructor(data: IToy[]) {
     this.data = data;
     this.options = {
@@ -19,6 +21,7 @@ class Filter {
       count: [1, 12],
       year: [1940, 2020],
     };
+    this.sort = 'name-asc';
   }
 
   start(): void {
@@ -33,15 +36,46 @@ class Filter {
       this.options.year = values;
       this.getYearSliderValues();
     });
-
+    const sortSelect = <HTMLSelectElement>document.querySelector('.form-filter__sort');
+    sortSelect.addEventListener('change', this.changeSortOptions.bind(this));
     document.addEventListener('click', this.changeFilter.bind(this));
     GetToyCards.getToys(this.data, this.options);
   }
 
   changeFilter(event: MouseEvent): void {
     const target = <HTMLElement>event.target;
-    if (target.closest('.form-filter') && !target.closest('.count-slider')) this.choseOptions(target);
+    if (target.closest('.form-filter')
+        && !target.closest('.count-slider')
+        && !target.closest('.form-filter__sort')) {
+      this.choseOptions(target);
+      GetToyCards.getToys(this.data, this.options);
+    }
+  }
+
+  changeSortOptions(): void {
+    const sortSelect = <HTMLSelectElement>document.querySelector('.form-filter__sort');
+    this.sort = sortSelect.value;
+    this.sortToysCards();
     GetToyCards.getToys(this.data, this.options);
+  }
+
+  sortToysCards(): void {
+    if (this.sort === 'name-asc') {
+      this.data.sort((a: IToy, b: IToy): 1 | -1 | 0 => {
+        if (a.name > b.name) return 1;
+        if (a.name < b.name) return -1;
+        return 0;
+      });
+    }
+    if (this.sort === 'name-desc') {
+      this.data.sort((a: IToy, b: IToy): 1 | -1 | 0 => {
+        if (a.name > b.name) return -1;
+        if (a.name < b.name) return 1;
+        return 0;
+      });
+    }
+    if (this.sort === 'year-asc') this.data.sort((a: IToy, b: IToy): number => Number(a.year) - Number(b.year));
+    if (this.sort === 'year-desc') this.data.sort((a: IToy, b: IToy): number => Number(b.year) - Number(a.year));
   }
 
   getCountSliderValues(): void {

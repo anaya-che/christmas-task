@@ -39,6 +39,12 @@ class ToysPage {
           <div class="form-filter__reset">
             <button class="reset-button" id="reset">Reset</button>
           </div>
+          <select class="form-filter__sort">
+            <option value="name-asc">Name A-Z</option>
+            <option value="name-desc">Name Z-A</option>
+            <option value="year-asc">Old First</option>
+            <option value="year-desc">New First</option>
+          </select>
         </section>
         <section class="toy-cards"></section>
     `;
