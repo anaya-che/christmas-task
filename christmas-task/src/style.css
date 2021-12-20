@@ -433,7 +433,7 @@ body {
 
 .card {
   position: relative;
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: flex-start;
@@ -446,7 +446,6 @@ body {
   background-color: rgba(31, 112, 127, .3);
   backdrop-filter: blur(6px);
   cursor: pointer;
-  transition: 1.2s;
 }
 
 .card-title {

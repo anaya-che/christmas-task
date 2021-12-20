@@ -1,5 +1,9 @@
+import { gsap } from 'gsap';
+import { Flip } from 'gsap/Flip';
 import ToyCard from './toyCard';
 import { IOptions, IToy } from '../../../types/types';
+
+gsap.registerPlugin(Flip);
 
 class GetToyCards {
   data: IToy[];
@@ -55,6 +59,8 @@ class GetToyCards {
   }
 
   hideToysByOptions() {
+    const state = Flip.getState('.card');
+
     this.allCardsArray.forEach((el: HTMLDivElement) => {
       const shapeContent = <string> el.childNodes[2].childNodes[2].textContent;
       const shape = <string> shapeContent.split(' ')[1];
@@ -81,6 +87,21 @@ class GetToyCards {
         el.classList.remove('hidden');
       }
     });
+
+    Flip.from(state, {
+      duration: 1,
+      fade: true,
+      scale: true,
+      absolute: true,
+      ease: 'power1.inOut',
+      onEnter: (elements) => gsap.fromTo(
+        elements,
+        { opacity: 0, scale: 0 },
+        { opacity: 1, scale: 1, duration: 1 },
+      ),
+      onLeave: (elements) => gsap.to(elements, { opacity: 0, scale: 0, duration: 1 }),
+    });
+
     this.getCurrentCards();
   }
 

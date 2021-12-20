@@ -21,29 +21,29 @@ class ToysPage {
       <div class="form-filter__shape-container">
         <div class="form-filter__shape-title">Форма</div>
         <div class="form-filter__shape">
-          <button class="shape-button shape-button_round" id="round"></button>
-          <button class="shape-button shape-button_bell" id="bell"></button>
-          <button class="shape-button shape-button_cone" id="cone"></button>
-          <button class="shape-button shape-button_snowflake" id="snowflake"></button>
-          <button class="shape-button shape-button_figurine" id="figurine"></button>
+          <button class="shape-button shape-button_round button" id="round"></button>
+          <button class="shape-button shape-button_bell button" id="bell"></button>
+          <button class="shape-button shape-button_cone button" id="cone"></button>
+          <button class="shape-button shape-button_snowflake button" id="snowflake"></button>
+          <button class="shape-button shape-button_figurine button" id="figurine"></button>
         </div>
       </div>
       <div class="form-filter__color-container">
         <div class="form-filter__color-title">Цвет</div>
         <div class="form-filter__color">
-          <button class="color-button color-button_white" id="white"></button>
-          <button class="color-button color-button_yellow" id="yellow"></button>
-          <button class="color-button color-button_red" id="red"></button>
-          <button class="color-button color-button_blue" id="blue"></button>
-          <button class="color-button color-button_green" id="green"></button>
+          <button class="color-button color-button_white button" id="white"></button>
+          <button class="color-button color-button_yellow button" id="yellow"></button>
+          <button class="color-button color-button_red button" id="red"></button>
+          <button class="color-button color-button_blue button" id="blue"></button>
+          <button class="color-button color-button_green button" id="green"></button>
         </div>
       </div>
       <div class="form-filter__size-container">
         <div class="form-filter__size-title">Размер</div>
         <div class="form-filter__size">
-          <button class="size-button size-button_big" id="big"></button>
-          <button class="size-button size-button_medium" id="medium"></button>
-          <button class="size-button size-button_small" id="small"></button>
+          <button class="size-button size-button_big button" id="big"></button>
+          <button class="size-button size-button_medium button" id="medium"></button>
+          <button class="size-button size-button_small button" id="small"></button>
         </div>
       </div>
       <div class="form-filter__favorite">
@@ -53,7 +53,7 @@ class ToysPage {
       </div>
       <div class="form-filter__count-container">
         <div class="form-filter__count-title">Количество экземпляров:</div>
-        <div class="count-slider"></div>
+        <div class="count-slider slider"></div>
         <div class="form-filter__count">
           <div class="count-value_lower"></div>
           <div class="count-value_upper"></div>
@@ -61,15 +61,15 @@ class ToysPage {
       </div>
       <div class="form-filter__year-container">
         <div class="form-filter__year-title">Год приобретения:</div>
-        <div class="year-slider"></div>
+        <div class="year-slider slider"></div>
         <div class="form-filter__year">
           <div class="year-value_lower"></div>
           <div class="year-value_upper"></div>
         </div>
       </div>
       <div class="form-filter__reset">
-        <button class="reset-button">Сброс фильтров</button>
-        <button class="clear-button">Сброс настроек</button>
+        <button class="reset-button button">Сброс фильтров</button>
+        <button class="clear-button button">Сброс настроек</button>
       </div>
     </section>
     <div class="blur">

@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "eslint-config-airbnb-typescript": "^16.1.0",
+    "gsap": "^3.9.0",
     "nouislider": "^15.5.0"
   }
 }

@@ -1,3 +1,4 @@
+import * as noUiSlider from 'nouislider';
 import {
   IOptions, IToy,
 } from '../../../types/types';
@@ -41,11 +42,25 @@ class Options {
   start(): void {
     const filter = <HTMLElement>document.querySelector('.form-filter');
     const toyCards = <HTMLElement>document.querySelector('.toy-cards');
+    const sortElement = <HTMLElement>document.querySelector('.form-filter__sort');
+
+    const countSlider = <noUiSlider.target>document.querySelector('.count-slider');
+    const yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
+    (<noUiSlider.API> countSlider.noUiSlider).on('change', (): void => {
+      const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
+      getToyCards.displayAllToys();
+    });
+
+    (<noUiSlider.API> yearSlider.noUiSlider).on('change', (): void => {
+      const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
+      getToyCards.displayAllToys();
+    });
+
     this.storage.start();
     this.getOptionsFromStorage();
     this.displaySelectedAmount();
     this.sorting.start();
-    filter.addEventListener('click', this.applySorting.bind(this));
+    sortElement.addEventListener('change', this.applySorting.bind(this));
     this.filter.start();
     filter.addEventListener('click', this.applyOptions.bind(this));
     const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
@@ -62,10 +77,16 @@ class Options {
     }
   }
 
-  applyOptions(): void {
-    this.options = this.filter.options;
-    const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
-    getToyCards.displayAllToys();
+  applyOptions(event: MouseEvent): void {
+    const target = <HTMLElement>event.target;
+    if (target.closest('.button')
+    || target.closest('.favorite-label')
+    || target.closest('.favorite-input')
+    || target.closest('.slider')) {
+      this.options = this.filter.options;
+      const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
+      getToyCards.displayAllToys();
+    }
   }
 
   selectCards(event: MouseEvent): void {
