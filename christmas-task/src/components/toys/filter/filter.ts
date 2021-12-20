@@ -243,14 +243,34 @@ class Filter {
     const activeButtons: NodeListOf<Element> = document.querySelectorAll('.active');
     activeButtons.forEach((el): void => el.classList.remove('active'));
 
+    Filter.displaySliderOptions(this.options);
+  }
+
+  static displaySliderOptions(options: IOptions<number, string>): void {
     const countSlider = <noUiSlider.target>document.querySelector('.count-slider');
     const yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
     (<noUiSlider.API>countSlider.noUiSlider).set(
-      [this.options.count[0], this.options.count[1]],
+      [options.count[0], options.count[1]],
     );
     (<noUiSlider.API>yearSlider.noUiSlider).set(
-      [this.options.year[0], this.options.year[1]],
+      [options.year[0], options.year[1]],
     );
+    this.getCountSliderValues(options);
+    this.getYearSliderValues(options);
+  }
+
+  static getCountSliderValues(options: IOptions<number, string>): void {
+    const lowerValue = <HTMLElement>document.querySelector('.count-value_lower');
+    const upperValue = <HTMLElement>document.querySelector('.count-value_upper');
+    lowerValue.textContent = options.count[0].toString();
+    upperValue.textContent = options.count[1].toString();
+  }
+
+  static getYearSliderValues(options: IOptions<number, string>): void {
+    const lowerValue = <HTMLElement>document.querySelector('.year-value_lower');
+    const upperValue = <HTMLElement>document.querySelector('.year-value_upper');
+    lowerValue.textContent = options.year[0].toString();
+    upperValue.textContent = options.year[1].toString();
   }
 
   static activeButton(id: string): void {
