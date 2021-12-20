@@ -10,6 +10,10 @@ class GetToyCards {
 
   searchInput: HTMLInputElement;
 
+  allCardsArray: HTMLDivElement[];
+
+  currentCards: Element[];
+
   toysArray: HTMLDivElement[];
 
   filteredToys: HTMLDivElement[];
@@ -18,49 +22,95 @@ class GetToyCards {
     this.data = data;
     this.options = options;
     this.selectedCards = selectedCards;
+    this.allCardsArray = [];
+    this.currentCards = [];
     this.toysArray = [];
     this.filteredToys = [];
     this.searchInput = <HTMLInputElement>document.querySelector('.search');
     this.searchInput.addEventListener('input', this.searchCards.bind(this));
   }
 
-  getToys(): void {
-    this.toysArray = [];
+  displayAllToys(): void {
     this.data.forEach((el: IToy) => {
       let selected = false;
-      if (this.options.shape.includes(el.shape)
-          && this.options.color.includes(el.color)
-          && this.options.size.includes(el.size)
-          && this.options.favorite.includes(el.favorite)
-          && (Number(el.count) >= this.options.count[0]
-          && Number(el.count) <= this.options.count[1])
-          && (Number(el.year) >= this.options.year[0]
-          && Number(el.year) <= this.options.year[1])) {
-        const card = new ToyCard(
-          el.num,
-          el.name,
-          el.count,
-          el.year,
-          el.shape,
-          el.color,
-          el.size,
-          el.favorite,
-        );
-        if (this.selectedCards.includes(el.num)) selected = true;
-        this.toysArray.push(card.createCard(selected));
+      const card = new ToyCard(
+        el.num,
+        el.name,
+        el.count,
+        el.year,
+        el.shape,
+        el.color,
+        el.size,
+        el.favorite,
+      );
+      if (this.selectedCards.includes(el.num)) selected = true;
+      this.allCardsArray.push(card.createCard(selected));
+    });
+
+    const cardContainer = <HTMLElement>document.querySelector('.toy-cards');
+    cardContainer.innerHTML = '';
+    this.allCardsArray.forEach((el: HTMLDivElement) => cardContainer.append(el));
+    this.hideToysByOptions();
+  }
+
+  hideToysByOptions() {
+    this.allCardsArray.forEach((el: HTMLDivElement) => {
+      const shape = <string> el.childNodes[4].textContent;
+      const color = <string> el.childNodes[5].textContent;
+      const size = <string> el.childNodes[6].textContent;
+      const favorite = <string> el.childNodes[7].textContent;
+      const count = <string> el.childNodes[2].textContent;
+      const year = <string> el.childNodes[3].textContent;
+      if (!this.options.shape.includes(shape)
+          || !this.options.color.includes(color)
+          || !this.options.size.includes(size)
+          || !this.options.favorite.includes(favorite)
+          || !(Number(count) >= this.options.count[0] && Number(count) <= this.options.count[1])
+          || !(Number(year) >= this.options.year[0] && Number(year) <= this.options.year[1])
+      ) {
+        el.classList.add('hidden');
+      } else if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
       }
     });
-    this.searchCards();
+
+    this.getCurrentCards();
+  }
+
+  getCurrentCards(): void {
+    const allCards: HTMLCollectionOf<Element> = document.getElementsByClassName('card');
+    const allCardsArray = Array.from(allCards, (element: Element) => element);
+    this.currentCards = allCardsArray.filter((el: Element) => !el.classList.value.includes('hidden'));
+    GetToyCards.getEmptyMessage();
+  }
+
+  static getEmptyMessage(): void {
+    const cardMessage = <HTMLElement>document.querySelector('.toy-cards__message');
+    const allCards: HTMLCollectionOf<Element> = document.getElementsByClassName('card');
+    const allCardsArray = Array.from(allCards, (element: Element) => element);
+    const aciveCards: Element[] = allCardsArray.filter((el: Element) => !el.classList.value.includes('hidden'));
+
+    if (aciveCards.length === 0) {
+      cardMessage.classList.remove('hidden');
+    } else if (!cardMessage.classList.contains('hidden')) {
+      cardMessage.classList.add('hidden');
+    }
   }
 
   searchCards(): void {
-    if (this.toysArray.length !== 0 && this.searchInput.value.length !== 0) {
-      this.filteredToys = this.toysArray.filter((el: HTMLDivElement) => {
+    if (this.currentCards.length !== 0 && this.searchInput.value.length !== 0) {
+      this.currentCards.forEach((el: Element) => {
         const title = <string> el.childNodes[1].textContent;
-        return title.toLowerCase().includes(this.searchInput.value);
+        if (!title.toLowerCase().includes(this.searchInput.value)) {
+          el.classList.add('hidden');
+        } else {
+          el.classList.remove('hidden');
+        }
       });
-      GetToyCards.render(this.filteredToys);
-    } else GetToyCards.render(this.toysArray);
+    } else if (this.searchInput.value.length === 0) {
+      this.currentCards.forEach((el: Element) => el.classList.remove('hidden'));
+    }
+    GetToyCards.getEmptyMessage();
   }
 
   static render(filteredToys: HTMLDivElement[]): void {

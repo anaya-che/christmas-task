@@ -49,7 +49,7 @@ class Options {
     this.filter.start();
     filter.addEventListener('click', this.applyOptions.bind(this));
     const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
-    getToyCards.getToys();
+    getToyCards.displayAllToys();
     toyCards.addEventListener('click', this.selectCards.bind(this));
     window.addEventListener('beforeunload', this.storage.setLocalStorage.bind(this));
   }
@@ -58,14 +58,14 @@ class Options {
     if (this.sort !== this.sorting.sort) {
       this.sort = this.sorting.sort;
       const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
-      getToyCards.getToys();
+      getToyCards.displayAllToys();
     }
   }
 
   applyOptions(): void {
     this.options = this.filter.options;
     const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
-    getToyCards.getToys();
+    getToyCards.displayAllToys();
   }
 
   selectCards(event: MouseEvent): void {

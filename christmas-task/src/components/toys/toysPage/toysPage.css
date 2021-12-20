@@ -2,12 +2,20 @@
   background-color: coral;
 }
 
+.toy-cards__message.hidden {
+  display: none;
+}
+
 .card {
   position: relative;
   width: 250px;
   height: 200px;
   background-color: bisque;
   cursor: pointer;
+}
+
+.card.hidden {
+  display: none;
 }
 
 .card.max-slots::before {

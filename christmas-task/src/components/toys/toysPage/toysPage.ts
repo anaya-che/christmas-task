@@ -49,7 +49,10 @@ class ToysPage {
             <option value="year-desc">New First</option>
           </select>
         </section>
-        <section class="toy-cards"></section>
+        <section class="toy-cards__container">
+          <div class="toy-cards__message hidden">Извините, совпадений не обнаружено</div>
+          <div class="toy-cards"></div>
+        </section>
     `;
     mainElement.innerHTML = page;
   }
