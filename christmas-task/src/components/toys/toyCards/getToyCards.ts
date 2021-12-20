@@ -8,7 +8,7 @@ gsap.registerPlugin(Flip);
 class GetToyCards {
   data: IToy[];
 
-  options: IOptions;
+  options: IOptions<number, string>;
 
   selectedCards: string[];
 
@@ -22,7 +22,7 @@ class GetToyCards {
 
   filteredToys: HTMLDivElement[];
 
-  constructor(data: IToy[], options: IOptions, selectedCards: string[]) {
+  constructor(data: IToy[], options: IOptions<number, string>, selectedCards: string[]) {
     this.data = data;
     this.options = options;
     this.selectedCards = selectedCards;
@@ -37,7 +37,7 @@ class GetToyCards {
   displayAllToys(): void {
     this.data.forEach((el: IToy) => {
       let selected = false;
-      const card = new ToyCard(
+      const card: ToyCard = new ToyCard(
         el.num,
         el.name,
         el.count,
@@ -53,15 +53,15 @@ class GetToyCards {
 
     const cardContainer = <HTMLElement>document.querySelector('.toy-cards');
     cardContainer.innerHTML = '';
-    this.allCardsArray.forEach((el: HTMLDivElement) => cardContainer.append(el));
+    this.allCardsArray.forEach((el: HTMLDivElement): void => cardContainer.append(el));
     this.hideToysByOptions();
     this.searchCards();
   }
 
-  hideToysByOptions() {
-    const state = Flip.getState('.card');
+  hideToysByOptions(): void {
+    const state: Flip.FlipState = Flip.getState('.card');
 
-    this.allCardsArray.forEach((el: HTMLDivElement) => {
+    this.allCardsArray.forEach((el: HTMLDivElement): void => {
       const shapeContent = <string> el.childNodes[2].childNodes[2].textContent;
       const shape = <string> shapeContent.split(' ')[1];
       const colorContent = <string> el.childNodes[2].childNodes[3].textContent;
@@ -94,12 +94,15 @@ class GetToyCards {
       scale: true,
       absolute: true,
       ease: 'power1.inOut',
-      onEnter: (elements) => gsap.fromTo(
+      onEnter: (elements: Element[]): gsap.core.Tween => gsap.fromTo(
         elements,
         { opacity: 0, scale: 0 },
         { opacity: 1, scale: 1, duration: 1 },
       ),
-      onLeave: (elements) => gsap.to(elements, { opacity: 0, scale: 0, duration: 1 }),
+      onLeave: (elements: Element[]): gsap.core.Tween => gsap.to(
+        elements,
+        { opacity: 0, scale: 0, duration: 1 },
+      ),
     });
 
     this.getCurrentCards();
@@ -107,7 +110,7 @@ class GetToyCards {
 
   getCurrentCards(): void {
     const allCards: HTMLCollectionOf<Element> = document.getElementsByClassName('card');
-    const allCardsArray = Array.from(allCards, (element: Element) => element);
+    const allCardsArray = Array.from(allCards, (element: Element): Element => element);
     this.currentCards = allCardsArray.filter((el: Element) => !el.classList.value.includes('hidden'));
     GetToyCards.getEmptyMessage();
   }
@@ -115,8 +118,8 @@ class GetToyCards {
   static getEmptyMessage(): void {
     const cardMessage = <HTMLElement>document.querySelector('.toy-cards__message');
     const allCards: HTMLCollectionOf<Element> = document.getElementsByClassName('card');
-    const allCardsArray = Array.from(allCards, (element: Element) => element);
-    const aciveCards: Element[] = allCardsArray.filter((el: Element) => !el.classList.value.includes('hidden'));
+    const allCardsArray = Array.from(allCards, (element: Element): Element => element);
+    const aciveCards: Element[] = allCardsArray.filter((el: Element): boolean => !el.classList.value.includes('hidden'));
 
     if (aciveCards.length === 0) {
       cardMessage.classList.remove('hidden');
@@ -127,7 +130,7 @@ class GetToyCards {
 
   searchCards(): void {
     if (this.currentCards.length !== 0 && this.searchInput.value.trim().length !== 0) {
-      this.currentCards.forEach((el: Element) => {
+      this.currentCards.forEach((el: Element): void => {
         const title = <string> el.childNodes[0].textContent;
         if (!title.toLowerCase().includes(this.searchInput.value.trim())) {
           el.classList.add('hidden');
@@ -136,7 +139,7 @@ class GetToyCards {
         }
       });
     } else if (this.searchInput.value.length === 0) {
-      this.currentCards.forEach((el: Element) => el.classList.remove('hidden'));
+      this.currentCards.forEach((el: Element): void => el.classList.remove('hidden'));
     }
     GetToyCards.getEmptyMessage();
   }
@@ -145,7 +148,7 @@ class GetToyCards {
     const cardContainer = <HTMLElement>document.querySelector('.toy-cards');
     cardContainer.innerHTML = '';
     if (filteredToys.length === 0) cardContainer.innerHTML = 'Извините, совпадений не обнаружено';
-    else filteredToys.forEach((el: HTMLDivElement) => cardContainer.append(el));
+    else filteredToys.forEach((el: HTMLDivElement): void => cardContainer.append(el));
   }
 }
 

@@ -4,13 +4,13 @@ import {
 } from '../../../types/types';
 
 class Filter {
-  options: IOptions;
+  options: IOptions<number, string>;
 
   countSlider: noUiSlider.target;
 
   yearSlider: noUiSlider.target;
 
-  constructor(options: IOptions) {
+  constructor(options: IOptions<number, string>) {
     this.options = options;
     this.countSlider = <noUiSlider.target>document.querySelector('.count-slider');
     this.yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
@@ -142,7 +142,7 @@ class Filter {
     if (activeButtonsId.length === 0) {
       shape.push('шар', 'колокольчик', 'шишка', 'снежинка', 'фигурка');
     } else {
-      activeButtonsId.forEach((el: string) => {
+      activeButtonsId.forEach((el: string): void => {
         switch (el) {
           case 'round':
             if (!shape.includes(ShapeFilter.Round)) shape.push(ShapeFilter.Round);
@@ -174,7 +174,7 @@ class Filter {
     if (activeButtonsId.length === 0) {
       color.push('белый', 'желтый', 'красный', 'синий', 'зелёный');
     } else {
-      activeButtonsId.forEach((el: string) => {
+      activeButtonsId.forEach((el: string): void => {
         switch (el) {
           case 'white':
             if (!color.includes(ColorFilter.White)) color.push(ColorFilter.White);
@@ -206,7 +206,7 @@ class Filter {
     if (activeButtonsId.length === 0) {
       size.push('большой', 'средний', 'малый');
     } else {
-      activeButtonsId.forEach((el: string) => {
+      activeButtonsId.forEach((el: string): void => {
         switch (el) {
           case 'big':
             if (!size.includes(SizeFilter.Big)) size.push(SizeFilter.Big);
@@ -241,7 +241,16 @@ class Filter {
     };
     this.displayCurrentOptions();
     const activeButtons: NodeListOf<Element> = document.querySelectorAll('.active');
-    activeButtons.forEach((el) => el.classList.remove('active'));
+    activeButtons.forEach((el): void => el.classList.remove('active'));
+
+    const countSlider = <noUiSlider.target>document.querySelector('.count-slider');
+    const yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
+    (<noUiSlider.API>countSlider.noUiSlider).set(
+      [this.options.count[0], this.options.count[1]],
+    );
+    (<noUiSlider.API>yearSlider.noUiSlider).set(
+      [this.options.year[0], this.options.year[1]],
+    );
   }
 
   static activeButton(id: string): void {

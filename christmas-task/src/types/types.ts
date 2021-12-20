@@ -1,10 +1,10 @@
-interface IOptions {
-  shape: string[];
-  color: string[];
-  size: string[];
-  favorite: string[];
-  count: (string | number)[];
-  year: (string | number)[];
+interface IOptions<T, U> {
+  shape: U[];
+  color: U[];
+  size: U[];
+  favorite: U[];
+  count: T[];
+  year: T[];
 }
 
 interface IToy {

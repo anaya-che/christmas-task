@@ -48,27 +48,35 @@ class ToyCard {
 
     const descriptionElement: HTMLDivElement = document.createElement('div');
     descriptionElement.className = 'card-decription';
+
     const nameElement: HTMLDivElement = document.createElement('div');
     nameElement.className = 'card-title';
     nameElement.innerText = this.name;
+
     const countElement: HTMLDivElement = document.createElement('div');
     countElement.className = 'count';
     countElement.innerText = `Количество: ${this.count}`;
+
     const yearElement: HTMLDivElement = document.createElement('div');
     yearElement.className = 'year';
     yearElement.innerText = `Год покупки: ${this.year}`;
+
     const shapeElement: HTMLDivElement = document.createElement('div');
     shapeElement.className = 'shape';
     shapeElement.innerText = `Форма: ${this.shape}`;
+
     const colorElement: HTMLDivElement = document.createElement('div');
     colorElement.className = 'color';
     colorElement.innerText = `Цвет: ${this.color}`;
+
     const sizeElement: HTMLDivElement = document.createElement('div');
     sizeElement.className = 'size';
     sizeElement.innerText = `Размер: ${this.size}`;
+
     const favoriteElement: HTMLDivElement = document.createElement('div');
     favoriteElement.className = 'favorite';
     favoriteElement.innerText = `Любимая: ${this.favorite}`;
+
     const ribbonElement: HTMLDivElement = document.createElement('div');
     ribbonElement.className = 'ribbon';
 

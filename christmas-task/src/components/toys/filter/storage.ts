@@ -3,7 +3,7 @@ import {
 } from '../../../types/types';
 
 class Storage {
-  options: IOptions;
+  options: IOptions<number, string>;
 
   sort: string;
 

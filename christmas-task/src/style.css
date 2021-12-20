@@ -167,12 +167,12 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease-in-out;
 }
 
 .shape-button:hover,
 .size-button:hover {
-  filter: invert(20%);
+  transform: scale(1.07);
 }
 
 .shape-button_round {
@@ -209,11 +209,13 @@ body {
   outline: 0;
   background-color: transparent;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease-in-out;
 }
 
 .color-button:hover {
   border-color: #cccccc;
+  filter: opacity(0.5);
+  transform: scale(1.07);
 }
 
 .color-button_white {
@@ -391,6 +393,7 @@ body {
   cursor: pointer;
   color: #ffffff;
   font-size: 19px;
+  transition: 0.3s ease-in-out;
 }
 
 .reset-button:hover,
@@ -562,9 +565,7 @@ body {
 
 .git-link:hover,
 .rss-link:hover {
-  filter: invert(52%) sepia(91%) saturate(392%) hue-rotate(-23deg)
-    brightness(134%) contrast(97%);
-  opacity: 0.8;
+  filter: opacity(0.5);
 }
 
 .git-link:active,

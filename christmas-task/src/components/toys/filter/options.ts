@@ -8,7 +8,7 @@ import Filter from './filter';
 import Storage from './storage';
 
 class Options {
-  options: IOptions;
+  options: IOptions<number, string>;
 
   data: IToy[];
 
@@ -43,19 +43,18 @@ class Options {
     const filter = <HTMLElement>document.querySelector('.form-filter');
     const toyCards = <HTMLElement>document.querySelector('.toy-cards');
     const sortElement = <HTMLElement>document.querySelector('.form-filter__sort');
-
     const countSlider = <noUiSlider.target>document.querySelector('.count-slider');
     const yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
     (<noUiSlider.API> countSlider.noUiSlider).on('change', (values: (string | number)[]): void => {
       const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
-      this.options.count = values;
+      this.options.count = <number[]>values;
       this.getCountSliderValues();
       getToyCards.displayAllToys();
     });
 
     (<noUiSlider.API> yearSlider.noUiSlider).on('change', (values: (string | number)[]): void => {
       const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
-      this.options.year = values;
+      this.options.year = <number[]>values;
       this.getYearSliderValues();
       getToyCards.displayAllToys();
     });
