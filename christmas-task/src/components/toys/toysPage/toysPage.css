@@ -3,10 +3,21 @@
 }
 
 .card {
+  position: relative;
   width: 250px;
   height: 200px;
   background-color: bisque;
   cursor: pointer;
+}
+
+.card.max-slots::before {
+  content: 'Извините, все слоты заполнены';
+  position: absolute;
+  top: 80px;
+  left: 0;
+  height: 21px;
+  width: 250px;
+  background-color: cadetblue;
 }
 
 .card.selected {

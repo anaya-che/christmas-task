@@ -66,7 +66,8 @@ class GetToyCards {
   static render(filteredToys: HTMLDivElement[]): void {
     const cardContainer = <HTMLElement>document.querySelector('.toy-cards');
     cardContainer.innerHTML = '';
-    filteredToys.forEach((el: HTMLDivElement) => cardContainer.append(el));
+    if (filteredToys.length === 0) cardContainer.innerHTML = 'Извините, совпадений не обнаружено';
+    else filteredToys.forEach((el: HTMLDivElement) => cardContainer.append(el));
   }
 }
 
