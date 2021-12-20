@@ -18,36 +18,15 @@ class Filter {
 
   start(): void {
     this.displayCurrentOptions();
-    (<noUiSlider.API> this.countSlider.noUiSlider).on('change', (values: (string | number)[]): void => {
-      this.options.count = values;
-      this.getCountSliderValues();
-    });
-
-    (<noUiSlider.API> this.yearSlider.noUiSlider).on('change', (values: (string | number)[]): void => {
-      this.options.year = values;
-      this.getYearSliderValues();
-    });
     const formFilter = <HTMLElement>document.querySelector('.form-filter');
     formFilter.addEventListener('click', this.changeFilter.bind(this));
   }
 
   displayCurrentOptions(): void {
-    this.displaySliderOptions();
     this.displayInputOptions();
     if (this.options.shape.length !== 5) this.displayShapeOptions();
     if (this.options.color.length !== 5) this.displayColorOptions();
     if (this.options.size.length !== 3) this.displaySizeOptions();
-  }
-
-  displaySliderOptions(): void {
-    (<noUiSlider.API> this.countSlider.noUiSlider).set(
-      [this.options.count[0], this.options.count[1]],
-    );
-    (<noUiSlider.API> this.yearSlider.noUiSlider).set(
-      [this.options.year[0], this.options.year[1]],
-    );
-    this.getCountSliderValues();
-    this.getYearSliderValues();
   }
 
   displayInputOptions(): void {
@@ -249,20 +228,6 @@ class Filter {
     const { favorite } = this.options;
     if (favoriteInput.checked) favorite.splice(favorite.indexOf('нет'), 1);
     else favorite.push('нет');
-  }
-
-  getCountSliderValues(): void {
-    const lowerValue = <HTMLElement>document.querySelector('.count-value_lower');
-    const upperValue = <HTMLElement>document.querySelector('.count-value_upper');
-    lowerValue.textContent = this.options.count[0].toString();
-    upperValue.textContent = this.options.count[1].toString();
-  }
-
-  getYearSliderValues(): void {
-    const lowerValue = <HTMLElement>document.querySelector('.year-value_lower');
-    const upperValue = <HTMLElement>document.querySelector('.year-value_upper');
-    lowerValue.textContent = this.options.year[0].toString();
-    upperValue.textContent = this.options.year[1].toString();
   }
 
   resetOptions(): void {

@@ -46,19 +46,24 @@ class Options {
 
     const countSlider = <noUiSlider.target>document.querySelector('.count-slider');
     const yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
-    (<noUiSlider.API> countSlider.noUiSlider).on('change', (): void => {
+    (<noUiSlider.API> countSlider.noUiSlider).on('change', (values: (string | number)[]): void => {
       const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
+      this.options.count = values;
+      this.getCountSliderValues();
       getToyCards.displayAllToys();
     });
 
-    (<noUiSlider.API> yearSlider.noUiSlider).on('change', (): void => {
+    (<noUiSlider.API> yearSlider.noUiSlider).on('change', (values: (string | number)[]): void => {
       const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
+      this.options.year = values;
+      this.getYearSliderValues();
       getToyCards.displayAllToys();
     });
 
     this.storage.start();
     this.getOptionsFromStorage();
     this.displaySelectedAmount();
+    this.displaySliderOptions();
     this.sorting.start();
     sortElement.addEventListener('change', this.applySorting.bind(this));
     this.filter.start();
@@ -119,6 +124,33 @@ class Options {
     this.selectedCards = this.storage.selectedCards;
     this.filter = new Filter(this.options);
     this.sorting = new Sorting(this.data, this.sort);
+  }
+
+  displaySliderOptions(): void {
+    const countSlider = <noUiSlider.target>document.querySelector('.count-slider');
+    const yearSlider = <noUiSlider.target>document.querySelector('.year-slider');
+    (<noUiSlider.API>countSlider.noUiSlider).set(
+      [this.options.count[0], this.options.count[1]],
+    );
+    (<noUiSlider.API>yearSlider.noUiSlider).set(
+      [this.options.year[0], this.options.year[1]],
+    );
+    this.getCountSliderValues();
+    this.getYearSliderValues();
+  }
+
+  getCountSliderValues(): void {
+    const lowerValue = <HTMLElement>document.querySelector('.count-value_lower');
+    const upperValue = <HTMLElement>document.querySelector('.count-value_upper');
+    lowerValue.textContent = this.options.count[0].toString();
+    upperValue.textContent = this.options.count[1].toString();
+  }
+
+  getYearSliderValues(): void {
+    const lowerValue = <HTMLElement>document.querySelector('.year-value_lower');
+    const upperValue = <HTMLElement>document.querySelector('.year-value_upper');
+    lowerValue.textContent = this.options.year[0].toString();
+    upperValue.textContent = this.options.year[1].toString();
   }
 }
 
