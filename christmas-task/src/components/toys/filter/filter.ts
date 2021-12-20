@@ -125,8 +125,8 @@ class Filter {
   changeFilter(event: MouseEvent): void {
     const target = <HTMLElement>event.target;
     if (target.closest('.form-filter')
-        && !target.closest('.count-slider')
-        && !target.closest('.form-filter__sort')) {
+        && !target.closest('.form-filter__sort')
+        && !target.closest('.search')) {
       this.choseOptions(target);
     }
   }

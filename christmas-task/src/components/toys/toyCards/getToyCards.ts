@@ -51,16 +51,24 @@ class GetToyCards {
     cardContainer.innerHTML = '';
     this.allCardsArray.forEach((el: HTMLDivElement) => cardContainer.append(el));
     this.hideToysByOptions();
+    this.searchCards();
   }
 
   hideToysByOptions() {
     this.allCardsArray.forEach((el: HTMLDivElement) => {
-      const shape = <string> el.childNodes[4].textContent;
-      const color = <string> el.childNodes[5].textContent;
-      const size = <string> el.childNodes[6].textContent;
-      const favorite = <string> el.childNodes[7].textContent;
-      const count = <string> el.childNodes[2].textContent;
-      const year = <string> el.childNodes[3].textContent;
+      const shapeContent = <string> el.childNodes[2].childNodes[2].textContent;
+      const shape = <string> shapeContent.split(' ')[1];
+      const colorContent = <string> el.childNodes[2].childNodes[3].textContent;
+      const color = <string> colorContent.split(' ')[1];
+      const sizeContent = <string> el.childNodes[2].childNodes[4].textContent;
+      const size = <string> sizeContent.split(' ')[1];
+      const favoriteContent = <string> el.childNodes[2].childNodes[5].textContent;
+      const favorite = <string> favoriteContent.split(' ')[1];
+      const countContent = <string> el.childNodes[2].childNodes[0].textContent;
+      const count = <string> countContent.split(' ')[1];
+      const yearContent = <string> el.childNodes[2].childNodes[1].textContent;
+      const year = <string> yearContent.split(' ')[2];
+
       if (!this.options.shape.includes(shape)
           || !this.options.color.includes(color)
           || !this.options.size.includes(size)
@@ -73,7 +81,6 @@ class GetToyCards {
         el.classList.remove('hidden');
       }
     });
-
     this.getCurrentCards();
   }
 
@@ -98,10 +105,10 @@ class GetToyCards {
   }
 
   searchCards(): void {
-    if (this.currentCards.length !== 0 && this.searchInput.value.length !== 0) {
+    if (this.currentCards.length !== 0 && this.searchInput.value.trim().length !== 0) {
       this.currentCards.forEach((el: Element) => {
-        const title = <string> el.childNodes[1].textContent;
-        if (!title.toLowerCase().includes(this.searchInput.value)) {
+        const title = <string> el.childNodes[0].textContent;
+        if (!title.toLowerCase().includes(this.searchInput.value.trim())) {
           el.classList.add('hidden');
         } else {
           el.classList.remove('hidden');

@@ -81,7 +81,7 @@ class Options {
         this.selectedCards.splice(this.selectedCards.indexOf(closest.id), 1);
       } else if (this.selectedCards.length === 20) {
         closest.classList.add('max-slots');
-        setTimeout(() => closest.classList.remove('max-slots'), 2000);
+        setTimeout(() => closest.classList.remove('max-slots'), 1500);
       }
       this.displaySelectedAmount();
     }

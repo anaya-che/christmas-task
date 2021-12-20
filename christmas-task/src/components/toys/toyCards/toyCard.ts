@@ -40,34 +40,46 @@ class ToyCard {
     if (selected) cardElement.className = 'card selected';
     else cardElement.className = 'card';
     cardElement.id = this.num;
-    const numElement: HTMLDivElement = document.createElement('div');
-    numElement.className = 'num';
-    numElement.innerText = this.num;
+
+    const imgElement: HTMLImageElement = document.createElement('img');
+    imgElement.className = 'card-image';
+    imgElement.setAttribute('src', `./assets/toys/${this.num}.png`);
+    imgElement.setAttribute('alt', 'Toy');
+
+    const descriptionElement: HTMLDivElement = document.createElement('div');
+    descriptionElement.className = 'card-decription';
     const nameElement: HTMLDivElement = document.createElement('div');
-    nameElement.className = 'name';
+    nameElement.className = 'card-title';
     nameElement.innerText = this.name;
     const countElement: HTMLDivElement = document.createElement('div');
     countElement.className = 'count';
-    countElement.innerText = this.count;
+    countElement.innerText = `Количество: ${this.count}`;
     const yearElement: HTMLDivElement = document.createElement('div');
     yearElement.className = 'year';
-    yearElement.innerText = this.year;
+    yearElement.innerText = `Год покупки: ${this.year}`;
     const shapeElement: HTMLDivElement = document.createElement('div');
     shapeElement.className = 'shape';
-    shapeElement.innerText = this.shape;
+    shapeElement.innerText = `Форма: ${this.shape}`;
     const colorElement: HTMLDivElement = document.createElement('div');
     colorElement.className = 'color';
-    colorElement.innerText = this.color;
+    colorElement.innerText = `Цвет: ${this.color}`;
     const sizeElement: HTMLDivElement = document.createElement('div');
     sizeElement.className = 'size';
-    sizeElement.innerText = this.size;
+    sizeElement.innerText = `Размер: ${this.size}`;
     const favoriteElement: HTMLDivElement = document.createElement('div');
     favoriteElement.className = 'favorite';
-    favoriteElement.innerText = this.favorite;
+    favoriteElement.innerText = `Любимая: ${this.favorite}`;
+    const ribbonElement: HTMLDivElement = document.createElement('div');
+    ribbonElement.className = 'ribbon';
 
     cardElement.append(
-      numElement,
       nameElement,
+      imgElement,
+      descriptionElement,
+      ribbonElement,
+    );
+
+    descriptionElement.append(
       countElement,
       yearElement,
       shapeElement,
