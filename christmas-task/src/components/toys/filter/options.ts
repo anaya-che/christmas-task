@@ -48,7 +48,8 @@ class Options {
     filter.addEventListener('click', this.applySorting.bind(this));
     this.filter.start();
     filter.addEventListener('click', this.applyOptions.bind(this));
-    GetToyCards.getToys(this.data, this.options, this.selectedCards);
+    const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
+    getToyCards.getToys();
     toyCards.addEventListener('click', this.selectCards.bind(this));
     window.addEventListener('beforeunload', this.storage.setLocalStorage.bind(this));
   }
@@ -56,13 +57,15 @@ class Options {
   applySorting(): void {
     if (this.sort !== this.sorting.sort) {
       this.sort = this.sorting.sort;
-      GetToyCards.getToys(this.data, this.options, this.selectedCards);
+      const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
+      getToyCards.getToys();
     }
   }
 
   applyOptions(): void {
     this.options = this.filter.options;
-    GetToyCards.getToys(this.data, this.options, this.selectedCards);
+    const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
+    getToyCards.getToys();
   }
 
   selectCards(event: MouseEvent): void {

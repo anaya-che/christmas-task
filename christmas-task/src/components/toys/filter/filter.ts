@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import * as noUiSlider from 'nouislider';
 import {
   IOptions, ShapeFilter, ColorFilter, SizeFilter,
@@ -41,8 +40,12 @@ class Filter {
   }
 
   displaySliderOptions(): void {
-    (<noUiSlider.API> this.countSlider.noUiSlider).set([this.options.count[0], this.options.count[1]]);
-    (<noUiSlider.API> this.yearSlider.noUiSlider).set([this.options.year[0], this.options.year[1]]);
+    (<noUiSlider.API> this.countSlider.noUiSlider).set(
+      [this.options.count[0], this.options.count[1]],
+    );
+    (<noUiSlider.API> this.yearSlider.noUiSlider).set(
+      [this.options.year[0], this.options.year[1]],
+    );
     this.getCountSliderValues();
     this.getYearSliderValues();
   }

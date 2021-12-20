@@ -2,16 +2,40 @@ import ToyCard from './toyCard';
 import { IOptions, IToy } from '../../../types/types';
 
 class GetToyCards {
-  static getToys(data: IToy[], options: IOptions, selectedCards: string[]): void {
-    const toysArray: HTMLDivElement[] = [];
-    data.forEach((el: IToy) => {
+  data: IToy[];
+
+  options: IOptions;
+
+  selectedCards: string[];
+
+  searchInput: HTMLInputElement;
+
+  toysArray: HTMLDivElement[];
+
+  filteredToys: HTMLDivElement[];
+
+  constructor(data: IToy[], options: IOptions, selectedCards: string[]) {
+    this.data = data;
+    this.options = options;
+    this.selectedCards = selectedCards;
+    this.toysArray = [];
+    this.filteredToys = [];
+    this.searchInput = <HTMLInputElement>document.querySelector('.search');
+    this.searchInput.addEventListener('input', this.searchCards.bind(this));
+  }
+
+  getToys(): void {
+    this.toysArray = [];
+    this.data.forEach((el: IToy) => {
       let selected = false;
-      if (options.shape.includes(el.shape)
-          && options.color.includes(el.color)
-          && options.size.includes(el.size)
-          && options.favorite.includes(el.favorite)
-          && (Number(el.count) >= options.count[0] && Number(el.count) <= options.count[1])
-          && (Number(el.year) >= options.year[0] && Number(el.year) <= options.year[1])) {
+      if (this.options.shape.includes(el.shape)
+          && this.options.color.includes(el.color)
+          && this.options.size.includes(el.size)
+          && this.options.favorite.includes(el.favorite)
+          && (Number(el.count) >= this.options.count[0]
+          && Number(el.count) <= this.options.count[1])
+          && (Number(el.year) >= this.options.year[0]
+          && Number(el.year) <= this.options.year[1])) {
         const card = new ToyCard(
           el.num,
           el.name,
@@ -22,51 +46,28 @@ class GetToyCards {
           el.size,
           el.favorite,
         );
-        if (selectedCards.includes(el.num)) selected = true;
-        toysArray.push(card.createCard(selected));
+        if (this.selectedCards.includes(el.num)) selected = true;
+        this.toysArray.push(card.createCard(selected));
       }
     });
-    this.render(toysArray);
+    this.searchCards();
   }
 
-  static render(toysArray: HTMLDivElement[]): void {
+  searchCards(): void {
+    if (this.toysArray.length !== 0 && this.searchInput.value.length !== 0) {
+      this.filteredToys = this.toysArray.filter((el: HTMLDivElement) => {
+        const title = <string> el.childNodes[1].textContent;
+        return title.toLowerCase().includes(this.searchInput.value);
+      });
+      GetToyCards.render(this.filteredToys);
+    } else GetToyCards.render(this.toysArray);
+  }
+
+  static render(filteredToys: HTMLDivElement[]): void {
     const cardContainer = <HTMLElement>document.querySelector('.toy-cards');
     cardContainer.innerHTML = '';
-    toysArray.forEach((el: HTMLDivElement) => cardContainer.append(el));
+    filteredToys.forEach((el: HTMLDivElement) => cardContainer.append(el));
   }
-
-  // static render(toysArray: HTMLDivElement[]): void {
-  //   const currCollection: HTMLCollectionOf<Element> = document.getElementsByClassName('card');
-  //   const currCollectionId = Array.from(currCollection, (element: Element) => element.id);
-  //   const toyId = Array.from(toysArray, (element: HTMLDivElement) => element.id);
-
-  //   if (currCollectionId.length === 0) {
-  //     toysArray.forEach((el: HTMLDivElement) => {
-  //       this.addCard(el);
-  //     });
-  //   } else {
-  //     toysArray.forEach((el: HTMLDivElement) => {
-  //       if (!currCollectionId.includes(el.id)) {
-  //         this.addCard(el);
-  //       }
-  //     });
-  //     currCollectionId.forEach((el: string) => {
-  //       if (!toyId.includes(el)) {
-  //         this.removeCard(el);
-  //       }
-  //     });
-  //   }
-  // }
-
-  // static addCard(el: HTMLDivElement): void {
-  //   const cardContainer = <HTMLElement>document.querySelector('.toy-cards');
-  //   cardContainer.append(el);
-  // }
-
-  // static removeCard(id: string): void {
-  //   const element: HTMLElement | null = document.getElementById(id);
-  //   if (element) element.remove();
-  // }
 }
 
 export default GetToyCards;
