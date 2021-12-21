@@ -92,7 +92,6 @@ class GetToyCards {
       duration: 1,
       fade: true,
       scale: true,
-      absolute: true,
       ease: 'power1.inOut',
       onEnter: (elements: Element[]): gsap.core.Tween => gsap.fromTo(
         elements,
