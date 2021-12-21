@@ -173,6 +173,7 @@ body {
 .shape-button:hover,
 .size-button:hover {
   transform: scale(1.07);
+  opacity: 0.8;
 }
 
 .shape-button_round {
@@ -312,6 +313,7 @@ body {
 
 .favorite-label:hover {
   background-color: #278D9F;
+  opacity: 0.8;
 }
 
 .favorite-input:checked + .favorite-label::after {
@@ -399,6 +401,7 @@ body {
 .reset-button:hover,
 .clear-button:hover {
   background-color: #278D9F;
+  opacity: 0.8;
 }
 
 .reset-button:active,
@@ -451,6 +454,12 @@ body {
   cursor: pointer;
 }
 
+.card:hover {
+  transition: 0.3s ease-in-out;
+  transform: scale(1.02);
+  opacity: 0.8;
+}
+
 .card-title {
   width: 100%;
   height: 40px;
@@ -478,6 +487,7 @@ body {
   height: 40px;
   background: #24C5DB;
   left: -8px;
+  transition: 0.3s ease-in-out;
 }
 
 .ribbon:before {
@@ -491,6 +501,7 @@ body {
   border-bottom: 20px solid transparent;
   border-left: 15px solid #24C5DB;
   right: -15px;
+  transition: 0.3s ease-in-out;
 }
 
 .ribbon::before, .ribbon::after {
@@ -514,15 +525,15 @@ body {
 
 .card.max-slots::before {
   content: 'Извините, все слоты заполнены';
-    position: absolute;
-    top: 40px;
-    left: 0px;
-    height: 30px;
-    width: 304px;
-    background-color: #a62b2b;
-    text-align: center;
-    padding-top: 7px;
-    font-size: 17px;
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  height: 30px;
+  width: 304px;
+  background-color: #a62b2b;
+  text-align: center;
+  padding-top: 7px;
+  font-size: 17px;
 }
 
 .footer {
@@ -566,6 +577,7 @@ body {
 .git-link:hover,
 .rss-link:hover {
   filter: opacity(0.5);
+  transform: scale(1.02);
 }
 
 .git-link:active,
@@ -583,4 +595,96 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
+}
+
+@media (max-width: 768px) {
+
+  .form-filter {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: 670px;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    backdrop-filter: blur(8px);
+  }
+
+  .search-container,
+  .form-filter__sort-container,
+  .form-filter__shape-container,
+  .form-filter__color-container,
+  .form-filter__size-container,
+  .form-filter__favorite,
+  .form-filter__count-container,
+  .form-filter__year-container {
+    width: 330px;
+  }
+
+  .selected-ball {
+    width: 35px;
+    height: 45px;
+  }
+
+  .selected-amount {
+    min-width: 30px;
+    width: 30.3px;
+    height: 30.3px;
+    font-size: 15px;
+    margin-top: 13px;
+    margin-left: 1.4px;
+    line-height: 32px;
+  }
+  
+  .form-filter__sort,
+  .reset-button,
+  .clear-button,
+  .search {
+    font-size: 15px;
+    height: 30px;
+  }
+
+  .shape-button {
+    width: 35px;
+    height: 35px;
+  }
+
+  .color-button {
+    width: 25px;
+    height: 25px;
+  }
+
+  .color-button.active::after {
+    top: 3px;
+    left: 7px;
+  }
+
+  .size-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .size-button.size-button_medium {
+    width: 35px;
+    height: 35px;
+    background-size: 35px 35px;
+  }
+ 
+  .size-button.size-button_small {
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
+  }
+
+  .favorite-label {
+    width: 25px;
+    height: 25px;
+  }
+
+  .toy-cards__container {
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
 }
