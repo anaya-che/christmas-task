@@ -131,7 +131,7 @@ class GetToyCards {
     if (this.currentCards.length !== 0 && this.searchInput.value.trim().length !== 0) {
       this.currentCards.forEach((el: Element): void => {
         const title = <string> el.childNodes[0].textContent;
-        if (!title.toLowerCase().includes(this.searchInput.value.trim())) {
+        if (!title.toLowerCase().includes(this.searchInput.value.trim().toLowerCase())) {
           el.classList.add('hidden');
         } else {
           el.classList.remove('hidden');
