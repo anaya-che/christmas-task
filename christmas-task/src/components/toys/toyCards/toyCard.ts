@@ -1,3 +1,5 @@
+import './toyCard.css';
+
 class ToyCard {
   num: string;
 
