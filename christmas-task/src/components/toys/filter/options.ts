@@ -70,7 +70,7 @@ class Options {
     const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
     getToyCards.displayAllToys();
     toyCards.addEventListener('click', this.selectCards.bind(this));
-    window.addEventListener('beforeunload', this.storage.setLocalStorage.bind(this));
+    document.addEventListener('click', this.storage.setLocalStorage.bind(this));
   }
 
   applySorting(): void {

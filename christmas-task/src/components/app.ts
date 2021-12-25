@@ -1,22 +1,26 @@
 import { IToy } from '../types/types';
 import MainPage from './mainPage/mainPage';
 import ToysPage from './toys/toysPage/toysPage';
-import TreePage from './treePage/treePage';
+import TreePage from './tree/treePage/treePage';
 import Options from './toys/filter/options';
 import Slider from './toys/slider/slider';
+import Storage from './toys/filter/storage';
 
 class App {
   data: IToy[];
 
+  storage: Storage;
+
   constructor() {
     this.data = [];
+    this.storage = new Storage();
+    document.addEventListener('click', this.navigation.bind(this));
   }
 
   async getAllToys(): Promise<void> {
     const toysData = '../data/data.json';
     const res: Response = await fetch(toysData);
     this.data = await res.json();
-    document.addEventListener('click', this.navigation.bind(this));
   }
 
   static createImage = (src: string): Promise<unknown> => new Promise((res, rej): void => {
@@ -37,8 +41,10 @@ class App {
     MainPage.render();
   }
 
-  // eslint-disable-next-line class-methods-use-this
   getTreePage(): void {
+    this.storage.getLocalStorage();
+    const { selectedCards } = this.storage;
+    console.log(selectedCards);
     TreePage.render();
   }
 
