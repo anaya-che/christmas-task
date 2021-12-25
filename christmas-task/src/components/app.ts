@@ -1,4 +1,5 @@
 import { IToy } from '../types/types';
+import MainPage from './mainPage/mainPage';
 import ToysPage from './toys/toysPage/toysPage';
 import Options from './toys/filter/options';
 import Slider from './toys/slider/slider';
@@ -16,6 +17,13 @@ class App {
     this.data = await res.json();
   }
 
+  static createImage = (src: string): Promise<unknown> => new Promise((res, rej): void => {
+    const img: HTMLImageElement = new Image();
+    img.onload = (): void => res(img);
+    img.onerror = rej;
+    img.src = src;
+  });
+
   getToysPage(): void {
     ToysPage.render();
     Slider.start();
@@ -23,9 +31,14 @@ class App {
     options.start();
   }
 
+  static getMainPage() {
+    MainPage.render();
+  }
+
   async start(): Promise<void> {
     await this.getAllToys();
-    this.getToysPage();
+    // this.getToysPage();
+    App.getMainPage();
   }
 }
 

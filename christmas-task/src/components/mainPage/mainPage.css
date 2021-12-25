@@ -1,0 +1,91 @@
+.main-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: inherit;
+  gap: 50px;
+}
+
+.main__title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  width: 600px;
+  height: 250px;
+  font-weight: 400;
+  border: 3px solid #278D9F;
+  border-radius: 25px;
+  background-color: rgba(31, 112, 127, .3);
+  backdrop-filter: blur(6px);
+  font-size: 48px;
+}
+
+.main__button {
+  width: 320px;
+  height: 60px;
+  border: none;
+  border-radius: 30px;
+  background-color: rgba(31, 112, 127, .3);
+  backdrop-filter: blur(6px);
+  font-size: 22px;
+  color: #fff;
+  cursor: pointer;
+  outline: 1px solid #278D9F;
+  transition: 0.5s ease-in-out;
+}
+
+.main__button:hover {
+  outline-color: rgba(255, 255, 255, 0);
+  outline-offset: 15px;
+  border: 1px solid #278D9F;
+}
+
+.main__button:active {
+  transform: scale(1.02);
+}
+
+.main__ball1 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  left: calc(50% - 550px);
+  top: 150px;
+  background-image: url("../../assets/ball/1.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.main__ball1::before {
+  content: "";
+  position: absolute;
+  top: -210px;
+  left: calc(50% - 47px);
+  width: 4px;
+  height: 220px;
+  width: 5px;
+  background-color: #aaa;
+}
+
+.main__ball2 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  left: calc(50% + 150px);
+  top: 150px;
+  background-image: url("../../assets/ball/2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.main__ball2::before {
+  content: "";
+  position: absolute;
+  top: -205px;
+  left: calc(50% - 32px);
+  height: 210px;
+  width: 5px;
+  background-color: #aaa;
+}
