@@ -1,3 +1,5 @@
+import './toysPage.css';
+
 class ToysPage {
   static render(): void {
     const mainElement = <HTMLElement>document.querySelector('.main');

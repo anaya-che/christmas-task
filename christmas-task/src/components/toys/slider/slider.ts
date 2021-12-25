@@ -1,5 +1,6 @@
 import * as noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
+import './slider.css';
 
 class Slider {
   static start(): void {
