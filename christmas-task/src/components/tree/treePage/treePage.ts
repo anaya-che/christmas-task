@@ -8,7 +8,7 @@ class TreePage {
         <div class="tree-page-container">
           <div class="settings-container">
             <div class="settings__effects-container">
-              <div class="effects__audio"></div>
+              <div class="effects__audio mute"></div>
               <div class="effects__snow"></div>
             </div>
             <div class="settings__tree-container">
@@ -40,11 +40,11 @@ class TreePage {
             <div class="settings__garland-container">
               <div class="settings__title">Гирлянда</div>
               <div class="garland-container">
-                <button class="multicolor-garland garland-btn"></button>
-                <button class="red-garland garland-btn"></button>
-                <button class="blue-garland garland-btn"></button>
-                <button class="yellow-garland garland-btn"></button>
-                <button class="green-garland garland-btn"></button>
+                <button class="multicolor-garland garland-btn" id="garland-multicolor"></button>
+                <button class="red-garland garland-btn" id="garland-red"></button>
+                <button class="blue-garland garland-btn" id="garland-blue"></button>
+                <button class="yellow-garland garland-btn" id="garland-yellow"></button>
+                <button class="green-garland garland-btn" id="garland-green"></button>
                 <input class="garland-input" type="checkbox" id="garland-input">
                 <label class="garland-switch" for="garland-input">
                   <span class="garland-switch-handle"></span>

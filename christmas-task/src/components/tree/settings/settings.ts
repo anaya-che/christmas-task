@@ -1,4 +1,5 @@
-import Snowflake from './snowfake';
+import Snowflake from '../snowflake/snowflake';
+import Garland from '../garland/garland';
 
 class Settings {
   music: string;
@@ -29,9 +30,23 @@ class Settings {
   changeSettings(event: MouseEvent): void {
     const target = <HTMLElement>event.target;
     if (target.closest('.effects__audio')) this.playMusic();
-    if (target.closest('.tree')) this.changeTree(target.id);
-    if (target.closest('.bg')) this.changeBg(target.id);
     if (target.closest('.effects__snow')) this.startSnow();
+    if (target.closest('.tree')) {
+      const imgNumber: string = target.id.split('-')[1];
+      this.treeImage = imgNumber;
+      this.changeTree();
+    }
+    if (target.closest('.bg')) {
+      const imgNumber: string = target.id.split('-')[1];
+      this.bgImage = imgNumber;
+      this.changeBg();
+    }
+    if (target.closest('.garland-btn')) {
+      const color: string = target.id.split('-')[1];
+      this.garlandColor = color;
+      this.choseGarland();
+    }
+    if (target.closest('.garland-switch')) this.checkGarlandInput();
   }
 
   playMusic(): void {
@@ -58,18 +73,14 @@ class Settings {
     audioImage.classList.add('mute');
   }
 
-  changeTree(id: string): void {
+  changeTree(): void {
     const treeElement = <HTMLElement>document.querySelector('.main-tree__img');
-    const imgNumber: string = id.split('-')[1];
-    this.treeImage = imgNumber;
     const imageSrc = `../../../assets/tree/${this.treeImage}.png`;
     treeElement.setAttribute('src', imageSrc);
   }
 
-  changeBg(id: string): void {
+  changeBg(): void {
     const mainContainer = <HTMLElement>document.querySelector('.main-tree-container');
-    const imgNumber: string = id.split('-')[1];
-    this.bgImage = imgNumber;
     const imageSrc = `../../../assets/bg/${this.bgImage}.jpg`;
     mainContainer.style.backgroundImage = `url("${imageSrc}")`;
   }
@@ -86,6 +97,25 @@ class Settings {
       this.snow = 'off';
       snowContainer.classList.add('hide');
       snowButton.classList.remove('active');
+    }
+  }
+
+  choseGarland(): void {
+    const garlandInput = <HTMLInputElement>document.querySelector('.garland-input');
+    this.garland = 'on';
+    garlandInput.checked = true;
+    Garland.start(this.garlandColor);
+  }
+
+  checkGarlandInput(): void {
+    const garlandContainer = <HTMLElement>document.querySelector('.main-tree__garland-container');
+    const garlandInput = <HTMLInputElement>document.querySelector('.garland-input');
+    if (garlandInput.checked === true) {
+      this.garland = 'off';
+      garlandContainer.innerHTML = '';
+    } else if (garlandInput.checked === false) {
+      this.garland = 'on';
+      Garland.start(this.garlandColor);
     }
   }
 }

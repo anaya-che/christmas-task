@@ -1,0 +1,124 @@
+.main-tree__garland-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 60px 0;
+  width: 500px;
+  height: 714px;
+}
+
+.lightrope {
+  display: flex;
+  gap: 15px;
+}
+
+.light {
+  width: 5px;
+  height: 7px;
+  border-radius: 50%;
+  position: relative;
+  animation-fill-mode: both; 
+  animation-iteration-count: infinite;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+	animation-duration: 2s;
+}
+
+.light.multicolor:nth-child(4n + 1),
+.light.red {
+  background: rgb(255, 0, 0);
+  box-shadow: 0px 2px 12px 2px rgba(255, 0, 0, 0.5);
+}
+
+.light.multicolor:nth-child(4n + 3),
+.light.blue {
+  background: rgb(36, 226, 255);
+  box-shadow: 0px 2px 12px 2px rgba(36, 226, 255, 0.5);
+}
+
+.light.multicolor:nth-child(4n),
+.light.yellow {
+  background: rgb(255, 255, 0);
+  box-shadow: 0px 2px 12px 2px rgba(255, 255, 0, 0.5);
+}
+
+.light.multicolor:nth-child(4n + 2),
+.light.green {
+  background: rgb(0, 247, 0);
+  box-shadow: 0px 2px 12px 2px rgba(0, 247, 0, 0.5);
+}
+
+.light.multicolor:nth-child(4n + 1),
+.light.red {
+  animation-name: flash-red;
+}
+
+.light.multicolor:nth-child(4n + 3),
+.light.blue {
+  animation-name: flash-blue;
+}
+
+.light.multicolor:nth-child(4n),
+.light.yellow {
+  animation-name: flash-yellow;
+}
+
+.light.multicolor:nth-child(4n + 2),
+.light.green {
+  animation-name: flash-green;
+}
+
+.light:nth-child(2n + 1) {
+  animation-duration: 1.8s;
+}
+
+.light:nth-child(3n + 1) {
+  animation-duration: 1.4s;
+}
+
+@keyframes flash-red {
+  0%, 100% {
+    background: rgba(255, 0, 0, 1);
+    box-shadow: 0px 2px 12px 2px rgba(255, 0, 0, 1);
+  }
+  50% {
+    background: rgba(255, 0, 0, 0.3);
+    box-shadow: 0px 2px 12px 2px rgba(255, 0, 0, 0.2);
+  }
+}
+
+@keyframes flash-blue {
+  0%, 100% {
+    background: rgba(36, 226, 255, 1);
+    box-shadow: 0px 2px 12px 2px rgba(36, 226, 255, 1);
+  }
+  50% {
+    background: rgba(36, 226, 255, 0.3);
+    box-shadow: 0px 2px 12px 2px rgba(36, 226, 255, 0.2);
+  }
+}
+
+@keyframes flash-yellow {
+  0%, 100% {
+    background: rgba(255, 255, 0, 1);
+    box-shadow: 0px 2px 12px 2px rgba(255, 255, 0, 1);
+  }
+  50% {
+    background: rgba(255, 255, 0, 0.3);
+    box-shadow: 0px 2px 12px 2px rgba(255, 255, 0, 0.2);
+  }
+}
+
+@keyframes flash-green {
+  0%, 100% {
+    background: rgba(0, 247, 0, 1);
+    box-shadow: 0px 2px 12px 2px rgba(0, 247, 0, 1);
+  }
+  50% {
+    background: rgba(0, 247, 0, 0.3);
+    box-shadow: 0px 2px 12px 2px rgba(0, 247, 0, 0.2);
+  }
+}
