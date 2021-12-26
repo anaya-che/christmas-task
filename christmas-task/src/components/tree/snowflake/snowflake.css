@@ -1,0 +1,13 @@
+.snowflake {
+	position: absolute;
+	top: -20px;
+  background-image: url("../../../assets/svg/snow.svg");
+  background-size: contain;
+	animation: fall linear forwards;
+}
+
+@keyframes fall {
+	to {
+		transform: translateY(105vh) rotate(240deg);
+	}
+}

@@ -1,3 +1,5 @@
+import './snowflake.css';
+
 class Snowflake {
   static createSnowFlake(): void {
     const snowFlakeContaiter = <HTMLElement>document.querySelector('.main-tree__snowflakes-container');

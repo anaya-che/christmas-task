@@ -5,6 +5,7 @@ import TreePage from './tree/treePage/treePage';
 import Options from './toys/filter/options';
 import Slider from './toys/slider/slider';
 import Storage from './toys/filter/storage';
+import Settings from './tree/settings/settings';
 
 class App {
   data: IToy[];
@@ -23,13 +24,6 @@ class App {
     this.data = await res.json();
   }
 
-  static createImage = (src: string): Promise<unknown> => new Promise((res, rej): void => {
-    const img: HTMLImageElement = new Image();
-    img.onload = (): void => res(img);
-    img.onerror = rej;
-    img.src = src;
-  });
-
   getToysPage(): void {
     ToysPage.render();
     Slider.start();
@@ -46,6 +40,8 @@ class App {
     const { selectedCards } = this.storage;
     console.log(selectedCards);
     TreePage.render();
+    const settings: Settings = new Settings();
+    settings.start();
   }
 
   async start(): Promise<void> {

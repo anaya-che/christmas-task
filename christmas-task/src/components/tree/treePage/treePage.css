@@ -37,10 +37,22 @@
 
 .effects__audio {
   background-image: url('../../../assets/svg/audio.svg');
+  filter: invert(9%) sepia(63%) saturate(461%) hue-rotate(
+322deg) brightness(83%) contrast(88%);
+}
+
+.effects__audio.mute{
+  background-image: url('../../../assets/svg/mute.svg');
+  filter: unset;
 }
 
 .effects__snow {
   background-image: url('../../../assets/svg/snow.svg');
+}
+
+.effects__snow.active {
+  filter: invert(9%) sepia(63%) saturate(461%) hue-rotate(
+    322deg) brightness(83%) contrast(88%);
 }
 
 .settings__tree-container,
@@ -164,6 +176,7 @@
   height: 24px;
   border-radius: 50%;
   border: none;
+  cursor: pointer;
 }
 
 .multicolor-garland {
@@ -268,7 +281,7 @@
 .main-tree-container {
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   width: 45vw;
   padding: 10px 35px;
@@ -282,11 +295,12 @@
 }
 
 .main-tree__snowflakes-container {
-
-}
-
-.main-tree__garland-container {
-
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .main-tree__img {
