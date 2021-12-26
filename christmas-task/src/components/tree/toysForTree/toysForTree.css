@@ -1,0 +1,35 @@
+.toys-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.toy-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 85px;
+  height: 85px;
+  border-radius: 10px;
+  background-color: #ffffff80;
+}
+
+.toys-count {
+  align-self: flex-end;
+  width: 27px;
+  height: 27px;
+  line-height: 25px;
+  text-align: center;
+  margin-left: 60px;
+  border-radius: 10px 0;
+  background-color: #24C5DB;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.toys-img {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}

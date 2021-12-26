@@ -4,17 +4,14 @@ import ToysPage from './toys/toysPage/toysPage';
 import TreePage from './tree/treePage/treePage';
 import Options from './toys/filter/options';
 import Slider from './toys/slider/slider';
-import Storage from './toys/filter/storage';
 import Settings from './tree/settings/settings';
+import ToysForTree from './tree/toysForTree/toysForTree';
 
 class App {
   data: IToy[];
 
-  storage: Storage;
-
   constructor() {
     this.data = [];
-    this.storage = new Storage();
     document.addEventListener('click', this.navigation.bind(this));
   }
 
@@ -36,12 +33,11 @@ class App {
   }
 
   getTreePage(): void {
-    this.storage.getLocalStorage();
-    const { selectedCards } = this.storage;
-    console.log(selectedCards);
     TreePage.render();
     const settings: Settings = new Settings();
     settings.start();
+    const toys: ToysForTree = new ToysForTree(this.data);
+    toys.start();
   }
 
   async start(): Promise<void> {
