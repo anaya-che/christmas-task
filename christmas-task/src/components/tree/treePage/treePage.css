@@ -8,9 +8,13 @@
 .favorites-container {
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: 20px;
   padding: 35px;
   max-width: 460px;
+}
+
+.settings-container {
+  justify-content: space-between;
 }
 
 .settings-container {

@@ -52,6 +52,7 @@ class TreePage {
               </label>
               </div>
             </div>
+            <button class="clear-button button">Сброс настроек</button>
           </div>
           <div class="main-tree-container">
             <div class="main-tree__snowflakes-container hide"></div>

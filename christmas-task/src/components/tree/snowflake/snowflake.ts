@@ -2,7 +2,7 @@ import './snowflake.css';
 
 class Snowflake {
   static createSnowFlake(): void {
-    const snowFlakeContaiter = <HTMLElement>document.querySelector('.main-tree__snowflakes-container');
+    const snowFlakeContaiter: HTMLElement | null = document.querySelector('.main-tree__snowflakes-container');
     const snowFlake = <HTMLElement>document.createElement('div');
     snowFlake.classList.add('snowflake');
     snowFlake.style.left = `${Math.random() * window.innerWidth}px`;
@@ -12,7 +12,7 @@ class Snowflake {
     snowFlake.style.width = `${size}px`;
     snowFlake.style.height = `${size}px`;
 
-    snowFlakeContaiter.appendChild(snowFlake);
+    if (snowFlakeContaiter) snowFlakeContaiter.appendChild(snowFlake);
 
     setTimeout(() => {
       snowFlake.remove();

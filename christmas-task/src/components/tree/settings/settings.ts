@@ -1,30 +1,46 @@
 import Snowflake from '../snowflake/snowflake';
 import Garland from '../garland/garland';
+import { ISettings } from '../../../types/types';
+import Storage from './storage';
 
 class Settings {
-  music: string;
-
-  snow: string;
-
-  treeImage: string;
-
-  bgImage: string;
-
   garland: string;
 
   garlandColor: string;
 
+  settings: ISettings;
+
+  storage: Storage;
+
   constructor() {
-    this.music = 'off';
-    this.snow = 'off';
-    this.treeImage = '1';
-    this.bgImage = '1';
+    this.settings = {
+      music: 'off',
+      snow: 'off',
+      treeImage: '1',
+      bgImage: '1',
+    };
     this.garland = 'off';
     this.garlandColor = 'multicolor';
+    this.storage = new Storage();
   }
 
   start(): void {
     document.addEventListener('click', this.changeSettings.bind(this));
+    this.storage.start();
+    document.addEventListener('click', this.storage.setLocalStorage.bind(this));
+    this.apllySettings();
+  }
+
+  apllySettings(): void {
+    this.settings = this.storage.settings;
+
+    if (this.settings.music === 'on') Settings.musicOn();
+    else if (this.settings.music === 'off') Settings.musicOff();
+
+    if (this.settings.snow === 'on') Settings.snowOn();
+    else if (this.settings.snow === 'off') Settings.snowOff();
+    this.changeTree();
+    this.changeBg();
   }
 
   changeSettings(event: MouseEvent): void {
@@ -33,12 +49,12 @@ class Settings {
     if (target.closest('.effects__snow')) this.startSnow();
     if (target.closest('.tree')) {
       const imgNumber: string = target.id.split('-')[1];
-      this.treeImage = imgNumber;
+      this.settings.treeImage = imgNumber;
       this.changeTree();
     }
     if (target.closest('.bg')) {
       const imgNumber: string = target.id.split('-')[1];
-      this.bgImage = imgNumber;
+      this.settings.bgImage = imgNumber;
       this.changeBg();
     }
     if (target.closest('.garland-btn')) {
@@ -50,11 +66,11 @@ class Settings {
   }
 
   playMusic(): void {
-    if (this.music === 'off') {
-      this.music = 'on';
+    if (this.settings.music === 'off') {
+      this.settings.music = 'on';
       Settings.musicOn();
-    } else if (this.music === 'on') {
-      this.music = 'off';
+    } else if (this.settings.music === 'on') {
+      this.settings.music = 'off';
       Settings.musicOff();
     }
   }
@@ -75,29 +91,46 @@ class Settings {
 
   changeTree(): void {
     const treeElement = <HTMLElement>document.querySelector('.main-tree__img');
-    const imageSrc = `../../../assets/tree/${this.treeImage}.png`;
+    const imageSrc = `../../../assets/tree/${this.settings.treeImage}.png`;
     treeElement.setAttribute('src', imageSrc);
   }
 
   changeBg(): void {
     const mainContainer = <HTMLElement>document.querySelector('.main-tree-container');
-    const imageSrc = `../../../assets/bg/${this.bgImage}.jpg`;
+    const imageSrc = `../../../assets/bg/${this.settings.bgImage}.jpg`;
     mainContainer.style.backgroundImage = `url("${imageSrc}")`;
   }
 
   startSnow(): void {
     const snowContainer = <HTMLElement>document.querySelector('.main-tree__snowflakes-container');
     const snowButton = <HTMLElement>document.querySelector('.effects__snow');
-    if (this.snow === 'off') {
-      this.snow = 'on';
-      snowContainer.classList.remove('hide');
-      snowButton.classList.add('active');
-      Snowflake.snowfall();
-    } else if (this.snow === 'on') {
-      this.snow = 'off';
-      snowContainer.classList.add('hide');
-      snowButton.classList.remove('active');
+    if (this.settings.snow === 'off') {
+      this.settings.snow = 'on';
+      // snowContainer.classList.remove('hide');
+      // snowButton.classList.add('active');
+      // Snowflake.snowfall();
+      Settings.snowOn();
+    } else if (this.settings.snow === 'on') {
+      this.settings.snow = 'off';
+      // snowContainer.classList.add('hide');
+      // snowButton.classList.remove('active');
+      Settings.snowOff();
     }
+  }
+
+  static snowOn(): void {
+    const snowContainer = <HTMLElement>document.querySelector('.main-tree__snowflakes-container');
+    const snowButton = <HTMLElement>document.querySelector('.effects__snow');
+    snowContainer.classList.remove('hide');
+    snowButton.classList.add('active');
+    Snowflake.snowfall();
+  }
+
+  static snowOff(): void {
+    const snowContainer = <HTMLElement>document.querySelector('.main-tree__snowflakes-container');
+    const snowButton = <HTMLElement>document.querySelector('.effects__snow');
+    snowContainer.classList.add('hide');
+    snowButton.classList.remove('active');
   }
 
   choseGarland(): void {

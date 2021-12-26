@@ -40,10 +40,18 @@ enum SizeFilter {
   Small = 'малый',
 }
 
+interface ISettings {
+  music: string;
+  snow: string;
+  treeImage: string;
+  bgImage: string;
+}
+
 export {
   IOptions,
   IToy,
   ShapeFilter,
   ColorFilter,
   SizeFilter,
+  ISettings,
 };
