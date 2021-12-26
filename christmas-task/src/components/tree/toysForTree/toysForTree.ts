@@ -27,28 +27,37 @@ class ToysForTree {
       }
       this.renderToys(newArray);
     }
+    this.dragToys();
   }
 
   renderToys(cardArray: string[]): void {
     const toysContainer = <HTMLElement>document.querySelector('.toys-container');
-    cardArray.forEach((el: string): void => {
-      const count = Number(this.data[Number(el)].count);
-      const toyCard = document.createElement('div');
-      toyCard.classList.add('toy-card');
-      const toyCount = document.createElement('p');
-      toyCount.classList.add('toys-count');
-      toyCount.textContent = `${count}`;
-      toyCard.append(toyCount);
-      for (let i = 0; i < count; i += 1) {
-        const toyImg = document.createElement('img');
-        toyImg.classList.add('toys-img');
-        toyImg.setAttribute('alt', 'Toy');
-        toyImg.setAttribute('dragable', 'true');
-        toyImg.setAttribute('src', `./assets/toys/${el}.png`);
-        toyCard.append(toyImg);
+
+    this.data.forEach((el: IToy) => {
+      if (cardArray.includes(el.num)) {
+        const toyCard = document.createElement('div');
+        toyCard.classList.add('toy-card');
+        const toyCount = document.createElement('p');
+        toyCount.classList.add('toys-count');
+        toyCount.textContent = `${el.count}`;
+        toyCard.append(toyCount);
+        for (let i = 0; i < Number(el.count); i += 1) {
+          const toyImg = document.createElement('img');
+          toyImg.classList.add('toys-img');
+          toyImg.setAttribute('alt', 'Toy');
+          toyImg.setAttribute('dragable', 'true');
+          toyImg.setAttribute('src', `./assets/toys/${el.num}.png`);
+          toyCard.append(toyImg);
+        }
+        toysContainer.append(toyCard);
+        toysContainer.append(toyCard);
       }
-      toysContainer.append(toyCard);
     });
+  }
+
+  dragToys(): void {
+    const draggable: NodeListOf<HTMLElement> = document.querySelectorAll('.toys-img');
+    console.log(draggable);
   }
 }
 
