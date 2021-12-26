@@ -28,10 +28,10 @@ class Settings {
     document.addEventListener('click', this.changeSettings.bind(this));
     this.storage.start();
     document.addEventListener('click', this.storage.setLocalStorage.bind(this));
-    this.apllySettings();
+    this.applySettings();
   }
 
-  apllySettings(): void {
+  applySettings(): void {
     this.settings = this.storage.settings;
 
     if (this.settings.music === 'on') Settings.musicOn();
@@ -102,18 +102,11 @@ class Settings {
   }
 
   startSnow(): void {
-    const snowContainer = <HTMLElement>document.querySelector('.main-tree__snowflakes-container');
-    const snowButton = <HTMLElement>document.querySelector('.effects__snow');
     if (this.settings.snow === 'off') {
       this.settings.snow = 'on';
-      // snowContainer.classList.remove('hide');
-      // snowButton.classList.add('active');
-      // Snowflake.snowfall();
       Settings.snowOn();
     } else if (this.settings.snow === 'on') {
       this.settings.snow = 'off';
-      // snowContainer.classList.add('hide');
-      // snowButton.classList.remove('active');
       Settings.snowOff();
     }
   }
