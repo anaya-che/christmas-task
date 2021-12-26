@@ -29,17 +29,16 @@ class Garland {
     rope.forEach((ulElement: HTMLElement) => {
       const ulCollection: HTMLCollection = ulElement.children;
       const liArray: Element[] = Array.from(ulCollection, (element: Element) => element);
-      let topPosition = 0;
-      const positionStep = 4;
-      const halfArray = liArray.length / 2;
-      liArray.forEach((el: Element, i: number) => {
+
+      const startAngle = Math.PI / liArray.length;
+      const radius = liArray.length * 3;
+      let angle = startAngle / 2;
+
+      liArray.forEach((el: Element) => {
         const liElement = <HTMLElement>el;
+        const topPosition = radius * Math.sin(angle);
         liElement.style.top = `${topPosition.toString()}px`;
-        if (i < halfArray - 1) {
-          topPosition += positionStep;
-        } else if (i > halfArray - 1) {
-          topPosition -= positionStep;
-        }
+        angle += startAngle;
       });
     });
   }
