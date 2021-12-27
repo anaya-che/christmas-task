@@ -57,8 +57,10 @@ class TreePage {
           <div class="main-tree-container">
             <div class="main-tree__snowflakes-container hide"></div>
             <div class="main-tree__garland-container"></div>
-            <div class="main-tree__toys-container"></div>
-            <img class="main-tree__img" src="./assets/tree/1.png" alt="Tree">
+            <map name="main-tree__map">
+              <area coords="245,9,18,615,118,687,375,687,473,624" shape="poly" target="_blank" href="https://www.google.com">
+            </map>
+            <img usemap="#main-tree__map" class="main-tree__img" src="./assets/tree/1.png" alt="Tree">
           </div>
           <div class="favorites-container">
             <div class="favorite__toys-container">

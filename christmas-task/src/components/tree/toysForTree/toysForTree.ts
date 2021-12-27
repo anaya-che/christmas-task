@@ -38,8 +38,10 @@ class ToysForTree {
       if (cardArray.includes(el.num)) {
         const toyCard = document.createElement('div');
         toyCard.classList.add('toy-card');
+        toyCard.id = `card-${el.num}`;
         const toyCount = document.createElement('p');
         toyCount.classList.add('toys-count');
+        toyCount.id = `count-${el.num}`;
         toyCount.textContent = `${el.count}`;
         toyCard.append(toyCount);
         for (let i = 0; i < Number(el.count); i += 1) {

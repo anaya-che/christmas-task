@@ -310,4 +310,5 @@
 .main-tree__img {
   width: 500px;
   height: 714px;
+  z-index: 1;
 }
