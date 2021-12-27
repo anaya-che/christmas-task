@@ -1,7 +1,7 @@
 import * as noUiSlider from 'nouislider';
 import {
   IOptions, ShapeFilter, ColorFilter, SizeFilter,
-} from '../../../types/types';
+} from '../../../types';
 
 class Filter {
   options: IOptions<number, string>;

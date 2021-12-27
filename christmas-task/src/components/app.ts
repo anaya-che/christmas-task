@@ -1,7 +1,7 @@
-import { IToy } from '../types/types';
-import ToysPage from './toys/toysPage/toysPage';
-import Options from './toys/filter/options';
-import Slider from './toys/slider/slider';
+import { IToy } from '../types';
+import ToysPage from './toys/toysPage';
+import { Options } from './toys/filter';
+import Slider from './toys/slider';
 
 class App {
   data: IToy[];

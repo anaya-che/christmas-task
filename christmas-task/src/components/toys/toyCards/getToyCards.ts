@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 import { Flip } from 'gsap/Flip';
 import ToyCard from './toyCard';
-import { IOptions, IToy } from '../../../types/types';
+import { IOptions, IToy } from '../../../types';
 
 gsap.registerPlugin(Flip);
 

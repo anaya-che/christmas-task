@@ -1,8 +1,8 @@
 import * as noUiSlider from 'nouislider';
 import {
   IOptions, IToy,
-} from '../../../types/types';
-import GetToyCards from '../toyCards/getToyCards';
+} from '../../../types';
+import { GetToyCards } from '../toyCards';
 import Sorting from './sorting';
 import Filter from './filter';
 import Storage from './storage';
