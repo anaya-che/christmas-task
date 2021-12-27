@@ -1,4 +1,3 @@
-import './toysForTree.css';
 import { IToy } from '../../../types/types';
 import Storage from '../../toys/filter/storage';
 import DragToys from './dragToys';
@@ -34,7 +33,7 @@ class ToysForTree {
   renderToys(cardArray: string[]): void {
     const toysContainer = <HTMLElement>document.querySelector('.toys-container');
 
-    this.data.forEach((el: IToy) => {
+    this.data.forEach((el: IToy): void => {
       if (cardArray.includes(el.num)) {
         const toyCard = document.createElement('div');
         toyCard.classList.add('toy-card');

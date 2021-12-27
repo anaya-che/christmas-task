@@ -10,7 +10,7 @@ class DragToys {
     document.addEventListener('drop', DragToys.returnToy.bind(this));
   }
 
-  static returnToy(event: DragEvent) {
+  static returnToy(event: DragEvent): void {
     const target = <HTMLElement>event.target;
     if (target.tagName !== 'AREA') {
       const dataTransfer = <DataTransfer>event.dataTransfer;

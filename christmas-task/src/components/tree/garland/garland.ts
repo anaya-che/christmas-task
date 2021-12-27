@@ -1,7 +1,5 @@
-import './garland.css';
-
 class Garland {
-  static start(color: string): void {
+  static start<T>(color: T): void {
     const garlandContainer = <HTMLElement>document.querySelector('.main-tree__garland-container');
     garlandContainer.innerHTML = '';
     const numberOfRopes = 8;
@@ -30,13 +28,13 @@ class Garland {
       const ulCollection: HTMLCollection = ulElement.children;
       const liArray: Element[] = Array.from(ulCollection, (element: Element) => element);
 
-      const startAngle = Math.PI / liArray.length;
-      const radius = liArray.length * 3;
-      let angle = startAngle / 2;
+      const startAngle: number = Math.PI / liArray.length;
+      const radius: number = liArray.length * 3;
+      let angle: number = startAngle / 2;
 
-      liArray.forEach((el: Element) => {
+      liArray.forEach((el: Element): void => {
         const liElement = <HTMLElement>el;
-        const topPosition = radius * Math.sin(angle);
+        const topPosition: number = radius * Math.sin(angle);
         liElement.style.top = `${topPosition.toString()}px`;
         angle += startAngle;
       });

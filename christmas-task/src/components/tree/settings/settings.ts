@@ -1,5 +1,5 @@
-import Snowflake from '../snowflake/snowflake';
-import Garland from '../garland/garland';
+import Snowflake from '../snowflake';
+import Garland from '../garland';
 import { ISettings } from '../../../types/types';
 import Storage from './storage';
 
@@ -130,7 +130,7 @@ class Settings {
     const garlandInput = <HTMLInputElement>document.querySelector('.garland-input');
     this.garland = 'on';
     garlandInput.checked = true;
-    Garland.start(this.garlandColor);
+    Garland.start<string>(this.garlandColor);
   }
 
   checkGarlandInput(): void {

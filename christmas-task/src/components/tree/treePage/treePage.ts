@@ -1,5 +1,3 @@
-import './treePage.css';
-
 class TreePage {
   static render(): void {
     const mainElement = <HTMLElement>document.querySelector('.main');
