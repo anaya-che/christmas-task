@@ -5,8 +5,26 @@ class DragToys {
 
     toysContainer.addEventListener('dragstart', DragToys.drag.bind(this));
     treeArea.addEventListener('drop', DragToys.drop.bind(this));
-    treeArea.addEventListener('dragover', DragToys.dragover.bind(this));
     treeArea.addEventListener('dragstart', DragToys.drag.bind(this));
+    document.addEventListener('dragover', DragToys.dragover.bind(this));
+    document.addEventListener('drop', DragToys.returnToy.bind(this));
+  }
+
+  static returnToy(event: DragEvent) {
+    const target = <HTMLElement>event.target;
+    if (target.tagName !== 'AREA') {
+      const dataTransfer = <DataTransfer>event.dataTransfer;
+      const data: string = dataTransfer.getData('text');
+      const element = <HTMLElement>document.getElementById(data);
+      element.remove();
+      element.style.left = '';
+      element.style.top = '';
+      const groupId: string = element.id.split('-')[0];
+      const cardId = `#card-${groupId}`;
+      const toyCard = <HTMLElement>document.querySelector(cardId);
+      toyCard.append(element);
+      DragToys.changeToyCount(element.id);
+    }
   }
 
   static dragover(event: DragEvent): void {
@@ -19,17 +37,16 @@ class DragToys {
     const data: string = dataTransfer.getData('text');
     const element = <HTMLElement>document.getElementById(data);
 
-    const treeContainer = <HTMLElement>document.querySelector('.main-tree-container');
-    const containerTop = treeContainer.getBoundingClientRect().top;
-    const containerLeft = treeContainer.getBoundingClientRect().left;
+    const areaTop = -710;
+    const areaLeft = 220;
 
-    const { clientX } = event;
-    const { clientY } = event;
+    const { offsetX } = event;
+    const { offsetY } = event;
     const { offsetWidth } = element;
     const { offsetHeight } = element;
 
-    element.style.left = `${clientX - containerLeft - (offsetWidth / 2)}px`;
-    element.style.top = `${clientY - containerTop - (offsetHeight / 2)}px`;
+    element.style.left = `${offsetX - areaLeft - (offsetWidth / 2)}px`;
+    element.style.top = `${offsetY - areaTop - (offsetHeight / 2)}px`;
     target.append(element);
     DragToys.changeToyCount(element.id);
   }

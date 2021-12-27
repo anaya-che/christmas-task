@@ -35,7 +35,8 @@
   z-index: 2;
 }
 
-
-.invisible{
-  display: none;
+area {
+  position: relative;
+  left: 220px;
+  top: -710px;
 }
