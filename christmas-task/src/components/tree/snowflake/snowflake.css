@@ -4,6 +4,7 @@
   background-image: url("../../../assets/svg/snow.svg");
   background-size: contain;
 	animation: fall linear forwards;
+	z-index: 3;
 }
 
 @keyframes fall {
