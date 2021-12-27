@@ -105,13 +105,13 @@ class Filter {
 
     if (shapeButton) {
       Filter.activeButton(shapeButton.id);
-      this.setShapeOptions();
+      Filter.setOptions('shape', this.options.shape);
     } else if (colorButton) {
       Filter.activeButton(colorButton.id);
-      this.setColorOptions();
+      Filter.setOptions('color', this.options.color);
     } else if (sizeButton) {
       Filter.activeButton(sizeButton.id);
-      this.setSizeOptions();
+      Filter.setOptions('size', this.options.size);
     } else if (favoriteInput) {
       this.setFavoriteOptions();
     } else if (resetButton) {
@@ -119,93 +119,31 @@ class Filter {
     }
   }
 
-  setShapeOptions(): void {
-    const activeButtons: HTMLCollectionOf<Element> = document.getElementsByClassName('shape-button active');
+  static setOptions(type: string, filter: string[]): void {
+    const activeButtons: HTMLCollectionOf<Element> = document.getElementsByClassName(`${type}-button active`);
     const activeButtonsId = Array.from(activeButtons, (element: Element) => element.id);
-    const { shape } = this.options;
-    shape.splice(0, shape.length);
-
-    if (activeButtonsId.length === 0) {
-      shape.push('шар', 'колокольчик', 'шишка', 'снежинка', 'фигурка');
-    } else {
-      activeButtonsId.forEach((el: string): void => {
-        switch (el) {
-          case 'round':
-            if (!shape.includes(ShapeFilter.Round)) shape.push(ShapeFilter.Round);
-            break;
-          case 'bell':
-            if (!shape.includes(ShapeFilter.Bell)) shape.push(ShapeFilter.Bell);
-            break;
-          case 'cone':
-            if (!shape.includes(ShapeFilter.Cone)) shape.push(ShapeFilter.Cone);
-            break;
-          case 'snowflake':
-            if (!shape.includes(ShapeFilter.Snowflake)) shape.push(ShapeFilter.Snowflake);
-            break;
-          case 'figurine':
-            if (!shape.includes(ShapeFilter.Figurine)) shape.push(ShapeFilter.Figurine);
-            break;
-          default: break;
-        }
-      });
+    filter.splice(0, filter.length);
+    if (type === 'size') {
+      if (activeButtonsId.length === 0) filter.push('большой', 'средний', 'малый');
+      if (activeButtonsId.includes('big') && !filter.includes(SizeFilter.Big)) filter.push(SizeFilter.Big);
+      if (activeButtonsId.includes('medium') && !filter.includes(SizeFilter.Medium)) filter.push(SizeFilter.Medium);
+      if (activeButtonsId.includes('small') && !filter.includes(SizeFilter.Small)) filter.push(SizeFilter.Small);
     }
-  }
-
-  setColorOptions(): void {
-    const activeButtons: HTMLCollectionOf<Element> = document.getElementsByClassName('color-button active');
-    const activeButtonsId = Array.from(activeButtons, (element: Element) => element.id);
-    const { color } = this.options;
-    color.splice(0, color.length);
-
-    if (activeButtonsId.length === 0) {
-      color.push('белый', 'желтый', 'красный', 'синий', 'зелёный');
-    } else {
-      activeButtonsId.forEach((el: string): void => {
-        switch (el) {
-          case 'white':
-            if (!color.includes(ColorFilter.White)) color.push(ColorFilter.White);
-            break;
-          case 'yellow':
-            if (!color.includes(ColorFilter.Yellow)) color.push(ColorFilter.Yellow);
-            break;
-          case 'red':
-            if (!color.includes(ColorFilter.Red)) color.push(ColorFilter.Red);
-            break;
-          case 'blue':
-            if (!color.includes(ColorFilter.Blue)) color.push(ColorFilter.Blue);
-            break;
-          case 'green':
-            if (!color.includes(ColorFilter.Green)) color.push(ColorFilter.Green);
-            break;
-          default: break;
-        }
-      });
+    if (type === 'shape') {
+      if (activeButtonsId.length === 0) filter.push('шар', 'колокольчик', 'шишка', 'снежинка', 'фигурка');
+      if (activeButtonsId.includes('round') && !filter.includes(ShapeFilter.Round)) filter.push(ShapeFilter.Round);
+      if (activeButtonsId.includes('bell') && !filter.includes(ShapeFilter.Bell)) filter.push(ShapeFilter.Bell);
+      if (activeButtonsId.includes('cone') && !filter.includes(ShapeFilter.Cone)) filter.push(ShapeFilter.Cone);
+      if (activeButtonsId.includes('snowflake') && !filter.includes(ShapeFilter.Snowflake)) filter.push(ShapeFilter.Snowflake);
+      if (activeButtonsId.includes('figurine') && !filter.includes(ShapeFilter.Figurine)) filter.push(ShapeFilter.Figurine);
     }
-  }
-
-  setSizeOptions(): void {
-    const activeButtons: HTMLCollectionOf<Element> = document.getElementsByClassName('size-button active');
-    const activeButtonsId = Array.from(activeButtons, (element: Element) => element.id);
-    const { size } = this.options;
-    size.splice(0, size.length);
-
-    if (activeButtonsId.length === 0) {
-      size.push('большой', 'средний', 'малый');
-    } else {
-      activeButtonsId.forEach((el: string): void => {
-        switch (el) {
-          case 'big':
-            if (!size.includes(SizeFilter.Big)) size.push(SizeFilter.Big);
-            break;
-          case 'medium':
-            if (!size.includes(SizeFilter.Medium)) size.push(SizeFilter.Medium);
-            break;
-          case 'small':
-            if (!size.includes(SizeFilter.Small)) size.push(SizeFilter.Small);
-            break;
-          default: break;
-        }
-      });
+    if (type === 'color') {
+      if (activeButtonsId.length === 0) filter.push('белый', 'желтый', 'красный', 'синий', 'зелёный');
+      if (activeButtonsId.includes('white') && !filter.includes(ColorFilter.White)) filter.push(ColorFilter.White);
+      if (activeButtonsId.includes('yellow') && !filter.includes(ColorFilter.Yellow)) filter.push(ColorFilter.Yellow);
+      if (activeButtonsId.includes('red') && !filter.includes(ColorFilter.Red)) filter.push(ColorFilter.Red);
+      if (activeButtonsId.includes('blue') && !filter.includes(ColorFilter.Blue)) filter.push(ColorFilter.Blue);
+      if (activeButtonsId.includes('green') && !filter.includes(ColorFilter.Green)) filter.push(ColorFilter.Green);
     }
   }
 
