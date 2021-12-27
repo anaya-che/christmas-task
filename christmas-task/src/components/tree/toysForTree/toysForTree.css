@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: space-evenly;
 }
 
 .toy-card {
@@ -11,7 +12,9 @@
   width: 85px;
   height: 85px;
   border-radius: 10px;
-  background-color: #ffffff80;
+  background-color: rgba(54, 57, 69, .3);
+  border: 2px solid rgba(147, 149, 151, .5);
+  transition: 0.3s ease-in-out;
 }
 
 .toys-count {
@@ -21,10 +24,15 @@
   line-height: 25px;
   text-align: center;
   margin-left: 60px;
-  border-radius: 10px 0;
-  background-color: #24C5DB;
+  border-radius: 8px 0;
+  background-color: rgba(147, 149, 151, .5);
   font-size: 14px;
   font-weight: 600;
+  transition: 0.3s ease-in-out;
+}
+
+.toy-card:hover {
+  background-color: rgba(31, 112, 127, .3);
 }
 
 .toys-img {

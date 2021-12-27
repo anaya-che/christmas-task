@@ -10,19 +10,12 @@
   flex-direction: column;
   gap: 20px;
   padding: 35px;
-  max-width: 460px;
+  width: 460px;
 }
 
 .settings-container {
   justify-content: space-between;
-}
-
-.settings-container {
-  width: 30vw;
-}
-
-.favorites-container {
-  width: 25vw;
+  align-items: center;
 }
 
 .settings__effects-container {
@@ -37,6 +30,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   cursor: pointer;
+  transition: 0.3s ease-in-out;
 }
 
 .effects__audio {
@@ -59,6 +53,12 @@
     322deg) brightness(83%) contrast(88%);
 }
 
+.effects__audio:hover,
+.effects__snow:hover {
+  transform: scale(1.07);
+  opacity: 0.5;
+}
+
 .settings__tree-container,
 .settings__bg-container,
 .settings__garland-container,
@@ -66,6 +66,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  align-items: center;
 }
 
 .settings__title,
@@ -79,17 +80,20 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: space-evenly;
 }
 
 .tree {
   width: 115px;
   height: 115px;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, .5);
-  background-size: auto 110px;
+  background-color: rgba(54, 57, 69, .3);
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
+  border: 2px solid rgba(147, 149, 151, .5);
+  transition: 0.3s ease-in-out;
 }
 
 .tree-1 {
@@ -116,16 +120,23 @@
   background-image: url("../../../assets/tree/6.png");
 }
 
+.tree:hover,
+.bg:hover {
+  transform: scale(1.03);
+  opacity: 0.8;
+}
+
 .bg {
   width: 65px;
   height: 65px;
-  border: 1px solid #cccc;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, .5);
+  background-color: rgba(54, 57, 69, .5);
+  outline: 2px solid rgba(147, 149, 151, .5);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
+  transition: 0.3s ease-in-out;
 }
 
 .bg-1 {
@@ -181,6 +192,12 @@
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.garland-btn:hover {
+  transform: scale(1.2);
+  filter: brightness(1.3);
 }
 
 .multicolor-garland {
@@ -228,6 +245,7 @@
   right: 0;
   bottom: 0;
   background-color: #808080;
+  border: 1px solid #278D9F;
   border-radius: 34px;
   transition: 0.4s;
 }
@@ -246,7 +264,7 @@
 
 .garland-switch-label {
   font-size: 17px;
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .garland-switch-label::before {
@@ -267,7 +285,7 @@
 }
 
 #garland-input:checked ~ label .garland-switch-handle {
-  background-color: #237E8F;
+  background-color: rgba(31, 112, 127, .3);
 }
 
 #garland-input:checked ~ label .garland-switch-handle::before {
@@ -287,11 +305,13 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  width: 45vw;
+  width: calc(100vw - 920px);
   padding: 10px 35px;
   background-image: url("../../../assets/bg/1.jpg");
   background-position: center;
   background-size: cover;
+  border: 7px solid rgb(48, 80, 80);
+  border-radius: 5px;
 }
 
 .hide {
@@ -311,4 +331,51 @@
   width: 500px;
   height: 714px;
   z-index: 1;
+}
+
+
+@media (max-width: 1440px) {
+
+  .settings-container, .favorites-container {
+    width: 350px;
+  }
+
+  .main-tree-container {
+    width: calc(100vw - 700px);
+  }
+
+}
+
+@media (max-width: 1248px) {
+
+  .tree-page-container {
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .settings-container {
+    width: 100vw;
+  }
+
+  .main-tree-container {
+    width: 55vw;
+  }
+
+  .favorites-container {
+    width: 35vw;
+  }
+
+}
+
+@media (max-width: 1024px) {
+
+  .main-tree-container,
+  .favorites-container {
+    width: 100vw;
+  }
+
+  .main-tree-container {
+    order: 2;
+  }
+
 }
