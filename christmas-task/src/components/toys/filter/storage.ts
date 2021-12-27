@@ -1,6 +1,6 @@
 import {
   IOptions,
-} from '../../../types/types';
+} from '../../../types';
 
 class Storage {
   options: IOptions<number, string>;

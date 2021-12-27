@@ -1,11 +1,12 @@
-import { IToy } from '../types/types';
+
 import MainPage from './mainPage/mainPage';
-import ToysPage from './toys/toysPage/toysPage';
 import TreePage from './tree/treePage';
-import Options from './toys/filter/options';
-import Slider from './toys/slider/slider';
 import { Settings } from './tree/settings';
 import { ToysForTree } from './tree/toysForTree';
+import { IToy } from '../types';
+import ToysPage from './toys/toysPage';
+import { Options } from './toys/filter';
+import Slider from './toys/slider';
 
 class App {
   data: IToy[];

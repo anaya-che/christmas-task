@@ -1,5 +1,5 @@
-import { IToy } from '../../../types/types';
-import Storage from '../../toys/filter/storage';
+import { IToy } from '../../../types';
+import { Storage } from '../../toys/filter';
 import DragToys from './dragToys';
 
 class ToysForTree {

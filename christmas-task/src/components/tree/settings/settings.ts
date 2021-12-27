@@ -1,6 +1,6 @@
 import Snowflake from '../snowflake';
 import Garland from '../garland';
-import { ISettings } from '../../../types/types';
+import { ISettings } from '../../../types';
 import Storage from './storage';
 
 class Settings {

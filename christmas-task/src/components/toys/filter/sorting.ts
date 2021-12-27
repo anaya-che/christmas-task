@@ -1,4 +1,4 @@
-import { IToy } from '../../../types/types';
+import { IToy } from '../../../types';
 
 class Sorting {
   data: IToy[];

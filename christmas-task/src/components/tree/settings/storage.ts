@@ -1,6 +1,6 @@
 import {
   ISettings,
-} from '../../../types/types';
+} from '../../../types';
 
 class Storage {
   settings: ISettings;
