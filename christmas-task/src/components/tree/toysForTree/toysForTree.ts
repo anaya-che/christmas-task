@@ -1,6 +1,7 @@
 import './toysForTree.css';
 import { IToy } from '../../../types/types';
 import Storage from '../../toys/filter/storage';
+import DragToys from './dragToys';
 
 class ToysForTree {
   data: IToy[];
@@ -27,7 +28,7 @@ class ToysForTree {
       }
       this.renderToys(newArray);
     }
-    this.dragToys();
+    DragToys.start();
   }
 
   renderToys(cardArray: string[]): void {
@@ -44,6 +45,7 @@ class ToysForTree {
         for (let i = 0; i < Number(el.count); i += 1) {
           const toyImg = document.createElement('img');
           toyImg.classList.add('toys-img');
+          toyImg.id = `${el.num}-${i}`;
           toyImg.setAttribute('alt', 'Toy');
           toyImg.setAttribute('dragable', 'true');
           toyImg.setAttribute('src', `./assets/toys/${el.num}.png`);
@@ -53,11 +55,6 @@ class ToysForTree {
         toysContainer.append(toyCard);
       }
     });
-  }
-
-  dragToys(): void {
-    const draggable: NodeListOf<HTMLElement> = document.querySelectorAll('.toys-img');
-    console.log(draggable);
   }
 }
 

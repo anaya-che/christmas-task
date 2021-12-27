@@ -1,3 +1,9 @@
+.main-tree__toys-container {
+  position: absolute;
+  width: 500px;
+  height: 714px;
+}
+
 .toys-container {
   display: flex;
   flex-wrap: wrap;
@@ -32,4 +38,9 @@
   height: 50px;
   width: 50px;
   cursor: pointer;
+}
+
+
+.invisible{
+  display: none;
 }

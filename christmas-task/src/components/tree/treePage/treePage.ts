@@ -57,6 +57,7 @@ class TreePage {
           <div class="main-tree-container">
             <div class="main-tree__snowflakes-container hide"></div>
             <div class="main-tree__garland-container"></div>
+            <div class="main-tree__toys-container"></div>
             <img class="main-tree__img" src="./assets/tree/1.png" alt="Tree">
           </div>
           <div class="favorites-container">
