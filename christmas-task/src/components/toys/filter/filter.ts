@@ -24,9 +24,13 @@ class Filter {
 
   displayCurrentOptions(): void {
     this.displayInputOptions();
-    if (this.options.shape.length !== 5) this.displayShapeOptions();
-    if (this.options.color.length !== 5) this.displayColorOptions();
-    if (this.options.size.length !== 3) this.displaySizeOptions();
+    const allShapeButtons = 5;
+    const allColorButtons = 5;
+    const allSizeButtons = 3;
+
+    if (this.options.shape.length !== allShapeButtons) this.displayShapeOptions();
+    if (this.options.color.length !== allColorButtons) this.displayColorOptions();
+    if (this.options.size.length !== allSizeButtons) this.displaySizeOptions();
   }
 
   displayInputOptions(): void {
