@@ -28,9 +28,15 @@ class Filter {
     const allColorButtons = 5;
     const allSizeButtons = 3;
 
-    if (this.options.shape.length !== allShapeButtons) this.displayShapeOptions();
-    if (this.options.color.length !== allColorButtons) this.displayColorOptions();
-    if (this.options.size.length !== allSizeButtons) this.displaySizeOptions();
+    if (this.options.shape.length !== allShapeButtons) {
+      Filter.displayFilterOptions(this.options.shape);
+    }
+    if (this.options.color.length !== allColorButtons) {
+      Filter.displayFilterOptions(this.options.color);
+    }
+    if (this.options.size.length !== allSizeButtons) {
+      Filter.displayFilterOptions(this.options.size);
+    }
   }
 
   displayInputOptions(): void {
@@ -39,70 +45,46 @@ class Filter {
     else favoriteInput.checked = false;
   }
 
-  displayShapeOptions(): void {
-    const { shape } = this.options;
-    shape.forEach((el: string): void => {
-      switch (el) {
-        case ShapeFilter.Round:
-          Filter.activeButton('round');
-          break;
-        case ShapeFilter.Bell:
-          Filter.activeButton('bell');
-          break;
-        case ShapeFilter.Cone:
-          Filter.activeButton('cone');
-          break;
-        case ShapeFilter.Snowflake:
-          Filter.activeButton('snowflake');
-          break;
-        case ShapeFilter.Figurine:
-          Filter.activeButton('figurine');
-          break;
-        default: break;
-      }
-    });
-  }
-
-  displayColorOptions(): void {
-    const { color } = this.options;
-    color.forEach((el: string): void => {
-      switch (el) {
-        case ColorFilter.White:
-          Filter.activeButton('white');
-          break;
-        case ColorFilter.Yellow:
-          Filter.activeButton('yellow');
-          break;
-        case ColorFilter.Red:
-          Filter.activeButton('red');
-          break;
-        case ColorFilter.Blue:
-          Filter.activeButton('blue');
-          break;
-        case ColorFilter.Green:
-          Filter.activeButton('green');
-          break;
-        default: break;
-      }
-    });
-  }
-
-  displaySizeOptions(): void {
-    const { size } = this.options;
-    size.forEach((el: string): void => {
-      switch (el) {
-        case SizeFilter.Big:
-          Filter.activeButton('big');
-          break;
-        case SizeFilter.Medium:
-          Filter.activeButton('medium');
-          break;
-        case SizeFilter.Small:
-          Filter.activeButton('small');
-          break;
-        default: break;
-      }
-    });
+  static displayFilterOptions(filters: string[]): void {
+    if (filters.includes(ShapeFilter.Round)) {
+      Filter.activeButton('round');
+    }
+    if (filters.includes(ShapeFilter.Bell)) {
+      Filter.activeButton('bell');
+    }
+    if (filters.includes(ShapeFilter.Cone)) {
+      Filter.activeButton('cone');
+    }
+    if (filters.includes(ShapeFilter.Snowflake)) {
+      Filter.activeButton('snowflake');
+    }
+    if (filters.includes(ShapeFilter.Figurine)) {
+      Filter.activeButton('figurine');
+    }
+    if (filters.includes(ColorFilter.White)) {
+      Filter.activeButton('white');
+    }
+    if (filters.includes(ColorFilter.Yellow)) {
+      Filter.activeButton('yellow');
+    }
+    if (filters.includes(ColorFilter.Red)) {
+      Filter.activeButton('red');
+    }
+    if (filters.includes(ColorFilter.Blue)) {
+      Filter.activeButton('blue');
+    }
+    if (filters.includes(ColorFilter.Green)) {
+      Filter.activeButton('green');
+    }
+    if (filters.includes(SizeFilter.Big)) {
+      Filter.activeButton('big');
+    }
+    if (filters.includes(SizeFilter.Medium)) {
+      Filter.activeButton('medium');
+    }
+    if (filters.includes(SizeFilter.Small)) {
+      Filter.activeButton('small');
+    }
   }
 
   changeFilter(event: MouseEvent): void {
