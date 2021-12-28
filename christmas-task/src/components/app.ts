@@ -1,4 +1,3 @@
-
 import MainPage from './mainPage/mainPage';
 import TreePage from './tree/treePage';
 import { Settings } from './tree/settings';

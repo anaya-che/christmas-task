@@ -29,10 +29,14 @@ class Settings {
     this.storage.start();
     document.addEventListener('click', this.storage.setLocalStorage.bind(this));
     this.applySettings();
+    const clearButton = <HTMLElement>document.querySelector('.clear-button');
+    clearButton.addEventListener('click', this.applySettings.bind(this));
   }
 
   applySettings(): void {
     this.settings = this.storage.settings;
+    this.garlandColor = this.storage.garlandColor;
+    this.garland = this.storage.garland;
 
     if (this.settings.music === 'on') Settings.musicOn();
     else if (this.settings.music === 'off') Settings.musicOff();
@@ -41,6 +45,7 @@ class Settings {
     else if (this.settings.snow === 'off') Settings.snowOff();
     this.changeTree();
     this.changeBg();
+    this.applyGarlandSettings();
   }
 
   changeSettings(event: MouseEvent): void {
@@ -141,7 +146,19 @@ class Settings {
       garlandContainer.innerHTML = '';
     } else if (garlandInput.checked === false) {
       this.garland = 'on';
-      Garland.start(this.garlandColor);
+      Garland.start<string>(this.garlandColor);
+    }
+  }
+
+  applyGarlandSettings(): void {
+    const garlandContainer = <HTMLElement>document.querySelector('.main-tree__garland-container');
+    const garlandInput = <HTMLInputElement>document.querySelector('.garland-input');
+    if (this.garland === 'on') {
+      garlandInput.checked = true;
+      Garland.start<string>(this.garlandColor);
+    } else if (this.garland === 'off') {
+      garlandInput.checked = false;
+      garlandContainer.innerHTML = '';
     }
   }
 }
