@@ -26,14 +26,11 @@ class Storage {
     clearButton.addEventListener('click', this.clearStorage.bind(this));
   }
 
-  setLocalStorage(event: MouseEvent): void {
-    const target = <HTMLElement>event.target;
-    if (!target.closest('.clear-button')) {
-      const settingsObj = JSON.stringify(this.settings);
-      localStorage.setItem('settings', settingsObj);
-      localStorage.setItem('garland', this.garland);
-      localStorage.setItem('garlandColor', this.garlandColor);
-    }
+  setLocalStorage(): void {
+    const settingsObj = JSON.stringify(this.settings);
+    localStorage.setItem('settings', settingsObj);
+    localStorage.setItem('garland', this.garland);
+    localStorage.setItem('garlandColor', this.garlandColor);
   }
 
   getLocalStorage(): void {

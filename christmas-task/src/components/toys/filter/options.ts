@@ -37,6 +37,8 @@ class Options {
     this.storage = new Storage();
     this.filter = new Filter(this.options);
     this.sorting = new Sorting(this.data, this.sort);
+    window.addEventListener('beforeunload', this.storage.setLocalStorage.bind(this));
+    document.addEventListener('mousedown', this.changePage.bind(this));
   }
 
   start(): void {
@@ -70,7 +72,11 @@ class Options {
     const getToyCards = new GetToyCards(this.data, this.options, this.selectedCards);
     getToyCards.displayAllToys();
     toyCards.addEventListener('click', this.selectCards.bind(this));
-    document.addEventListener('click', this.storage.setLocalStorage.bind(this));
+  }
+
+  changePage(event: MouseEvent): void {
+    const target = <HTMLElement>event.target;
+    if (target.classList.contains('header__nav-item')) this.storage.setLocalStorage();
   }
 
   applySorting(): void {

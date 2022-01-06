@@ -1,6 +1,6 @@
 import * as noUiSlider from 'nouislider';
 import {
-  IOptions, ShapeFilter, ColorFilter, SizeFilter,
+  IOptions, ShapeFilterEng, ColorFilterEng, SizeFilterEng,
 } from '../../../types';
 
 class Filter {
@@ -29,13 +29,13 @@ class Filter {
     const allSizeButtons = 3;
 
     if (this.options.shape.length !== allShapeButtons) {
-      Filter.displayFilterOptions(this.options.shape);
+      Filter.displayFilterOptions<typeof ShapeFilterEng>(this.options.shape, ShapeFilterEng);
     }
     if (this.options.color.length !== allColorButtons) {
-      Filter.displayFilterOptions(this.options.color);
+      Filter.displayFilterOptions<typeof ColorFilterEng>(this.options.color, ColorFilterEng);
     }
     if (this.options.size.length !== allSizeButtons) {
-      Filter.displayFilterOptions(this.options.size);
+      Filter.displayFilterOptions<typeof SizeFilterEng>(this.options.size, SizeFilterEng);
     }
   }
 
@@ -45,46 +45,10 @@ class Filter {
     else favoriteInput.checked = false;
   }
 
-  static displayFilterOptions(filters: string[]): void {
-    if (filters.includes(ShapeFilter.Round)) {
-      Filter.activeButton('round');
-    }
-    if (filters.includes(ShapeFilter.Bell)) {
-      Filter.activeButton('bell');
-    }
-    if (filters.includes(ShapeFilter.Cone)) {
-      Filter.activeButton('cone');
-    }
-    if (filters.includes(ShapeFilter.Snowflake)) {
-      Filter.activeButton('snowflake');
-    }
-    if (filters.includes(ShapeFilter.Figurine)) {
-      Filter.activeButton('figurine');
-    }
-    if (filters.includes(ColorFilter.White)) {
-      Filter.activeButton('white');
-    }
-    if (filters.includes(ColorFilter.Yellow)) {
-      Filter.activeButton('yellow');
-    }
-    if (filters.includes(ColorFilter.Red)) {
-      Filter.activeButton('red');
-    }
-    if (filters.includes(ColorFilter.Blue)) {
-      Filter.activeButton('blue');
-    }
-    if (filters.includes(ColorFilter.Green)) {
-      Filter.activeButton('green');
-    }
-    if (filters.includes(SizeFilter.Big)) {
-      Filter.activeButton('big');
-    }
-    if (filters.includes(SizeFilter.Medium)) {
-      Filter.activeButton('medium');
-    }
-    if (filters.includes(SizeFilter.Small)) {
-      Filter.activeButton('small');
-    }
+  static displayFilterOptions<T>(filters: string[], enumObj: T): void {
+    Object.entries(enumObj).forEach(([key, value]) => {
+      if (filters.includes(value)) Filter.activeButton(key);
+    });
   }
 
   changeFilter(event: MouseEvent): void {
@@ -105,13 +69,13 @@ class Filter {
 
     if (shapeButton) {
       Filter.activeButton(shapeButton.id);
-      Filter.setOptions('shape', this.options.shape);
+      Filter.setOptions<typeof ShapeFilterEng>(this.options.shape, 'shape', ShapeFilterEng);
     } else if (colorButton) {
       Filter.activeButton(colorButton.id);
-      Filter.setOptions('color', this.options.color);
+      Filter.setOptions<typeof ColorFilterEng>(this.options.color, 'color', ColorFilterEng);
     } else if (sizeButton) {
       Filter.activeButton(sizeButton.id);
-      Filter.setOptions('size', this.options.size);
+      Filter.setOptions<typeof SizeFilterEng>(this.options.size, 'size', SizeFilterEng);
     } else if (favoriteInput) {
       this.setFavoriteOptions();
     } else if (resetButton) {
@@ -119,32 +83,19 @@ class Filter {
     }
   }
 
-  static setOptions(type: string, filter: string[]): void {
+  static setOptions<T>(filter: string[], type: string, enumObj: T): void {
     const activeButtons: HTMLCollectionOf<Element> = document.getElementsByClassName(`${type}-button active`);
     const activeButtonsId = Array.from(activeButtons, (element: Element) => element.id);
     filter.splice(0, filter.length);
-    if (type === 'size') {
-      if (activeButtonsId.length === 0) filter.push('большой', 'средний', 'малый');
-      if (activeButtonsId.includes('big') && !filter.includes(SizeFilter.Big)) filter.push(SizeFilter.Big);
-      if (activeButtonsId.includes('medium') && !filter.includes(SizeFilter.Medium)) filter.push(SizeFilter.Medium);
-      if (activeButtonsId.includes('small') && !filter.includes(SizeFilter.Small)) filter.push(SizeFilter.Small);
-    }
-    if (type === 'shape') {
-      if (activeButtonsId.length === 0) filter.push('шар', 'колокольчик', 'шишка', 'снежинка', 'фигурка');
-      if (activeButtonsId.includes('round') && !filter.includes(ShapeFilter.Round)) filter.push(ShapeFilter.Round);
-      if (activeButtonsId.includes('bell') && !filter.includes(ShapeFilter.Bell)) filter.push(ShapeFilter.Bell);
-      if (activeButtonsId.includes('cone') && !filter.includes(ShapeFilter.Cone)) filter.push(ShapeFilter.Cone);
-      if (activeButtonsId.includes('snowflake') && !filter.includes(ShapeFilter.Snowflake)) filter.push(ShapeFilter.Snowflake);
-      if (activeButtonsId.includes('figurine') && !filter.includes(ShapeFilter.Figurine)) filter.push(ShapeFilter.Figurine);
-    }
-    if (type === 'color') {
-      if (activeButtonsId.length === 0) filter.push('белый', 'желтый', 'красный', 'синий', 'зелёный');
-      if (activeButtonsId.includes('white') && !filter.includes(ColorFilter.White)) filter.push(ColorFilter.White);
-      if (activeButtonsId.includes('yellow') && !filter.includes(ColorFilter.Yellow)) filter.push(ColorFilter.Yellow);
-      if (activeButtonsId.includes('red') && !filter.includes(ColorFilter.Red)) filter.push(ColorFilter.Red);
-      if (activeButtonsId.includes('blue') && !filter.includes(ColorFilter.Blue)) filter.push(ColorFilter.Blue);
-      if (activeButtonsId.includes('green') && !filter.includes(ColorFilter.Green)) filter.push(ColorFilter.Green);
-    }
+
+    activeButtonsId.forEach((el: string) => {
+      if (Object.keys(enumObj).includes(el)) {
+        const value: T[keyof T] = enumObj[el as keyof typeof enumObj];
+        if (typeof value === 'string') filter.push(value);
+      }
+    });
+
+    if (activeButtonsId.length === 0) Object.values(enumObj).forEach((el) => filter.push(el));
   }
 
   setFavoriteOptions(): void {

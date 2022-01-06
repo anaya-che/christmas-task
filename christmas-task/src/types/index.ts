@@ -26,6 +26,14 @@ enum ShapeFilter {
   Figurine = 'фигурка',
 }
 
+enum ShapeFilterEng {
+  'round' = ShapeFilter.Round,
+  'bell' = ShapeFilter.Bell,
+  'cone' = ShapeFilter.Cone,
+  'snowflake' = ShapeFilter.Snowflake,
+  'figurine' = ShapeFilter.Figurine,
+}
+
 enum ColorFilter {
   White = 'белый',
   Yellow = 'желтый',
@@ -34,10 +42,24 @@ enum ColorFilter {
   Green = 'зелёный',
 }
 
+enum ColorFilterEng {
+  'white' = ColorFilter.White,
+  'yellow' = ColorFilter.Yellow,
+  'red' = ColorFilter.Red,
+  'blue' = ColorFilter.Blue,
+  'green' = ColorFilter.Green,
+}
+
 enum SizeFilter {
   Big = 'большой',
   Medium = 'средний',
   Small = 'малый',
+}
+
+enum SizeFilterEng {
+  'big' = SizeFilter.Big,
+  'medium' = SizeFilter.Medium,
+  'small' = SizeFilter.Small,
 }
 
 interface ISettings {
@@ -51,6 +73,9 @@ export {
   IOptions,
   IToy,
   ShapeFilter,
+  ShapeFilterEng,
+  ColorFilterEng,
+  SizeFilterEng,
   ColorFilter,
   SizeFilter,
   ISettings,
